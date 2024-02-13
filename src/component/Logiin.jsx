@@ -2,28 +2,27 @@ import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { NavLink, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function Registration() {
+function Logiin() {
   const [errorMsg, setErrorMsg] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (values) => {
-    if (!values.username || !values.email || !values.password) {
+    if (!values.email || !values.password) {
       setErrorMsg('Fill in all fields');
       return;
     }
     setErrorMsg('');
 
-    createUserWithEmailAndPassword(auth, values.email, values.password)
+    signInWithEmailAndPassword(auth, values.email, values.password)
       .then((res) => {
         const user = res.user;
-        toast.success('Registration successful!');
-        navigate('/');
-        console.log(user);
+        toast.success('Login successful!');
+        navigate('/home');
         console.log(res);
       })
       .catch(err => {
@@ -48,17 +47,16 @@ function Registration() {
             margin: "auto",
             boxShadow: 3,
             padding: 5,
-            height: 300,
+            height: 250,
             background: "rgb(255 255 255)",
           }}
           className="form_container"
         >
-          <Typography sx={{ fontWeight: "bold" , paddingBottom : '15px' }} variant="h5">
-            Sign Up
+          <Typography sx={{ fontWeight: "bold" , paddingBottom : '15px' , color: 'rgb(37, 84, 112)' }} variant="h5">
+            Login
           </Typography>
           <Formik
             initialValues={{
-              username: "",
               email: "",
               password: "",
             }}
@@ -71,15 +69,6 @@ function Registration() {
                   direction={"column"}
                   spacing={1}
                 >
-                  <Field
-                    as={TextField}
-                    fullWidth
-                    label="Username"
-                    type="text"
-                    name="username"
-                    value={values.username}
-                    onChange={handleChange}
-                  />
                   <Field
                     as={TextField}
                     fullWidth
@@ -107,19 +96,19 @@ function Registration() {
                     }}
                     type="submit"
                   >
-                    Sign Up
+                    Login
                   </Button>
                 </Stack>
               </Form>
             )}
           </Formik>
-          <Box  sx={{paddingTop: 3}}>
+          <Box sx={{ marginTop: '15px' }}>
             <NavLink
               style={{ color: "#1565c0", paddingTop: 3 }}
-              to={"/"}
+              to={"/signup"}
               variant="body2"
             >
-              Already have an account? Sign in
+              Don't have an account? Sign up
             </NavLink>
           </Box>
         </Stack>
@@ -129,4 +118,4 @@ function Registration() {
   );
 }
 
-export default Registration;
+export default Logiin;
