@@ -5,6 +5,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { database } from "../firebase";
 import * as Yup from "yup";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Image from "../assets/editimg.jpg";
+
 
 function EditForm() {
   const [userData, setUserData] = useState(null);
@@ -32,6 +36,12 @@ const navigate = useNavigate()
   }, [id]);
 
   const handleSubmit = async (values) => {
+   
+    if (!values.firstname || !values.lastname || !values.email || !values.address || !values.phoneno) {
+        toast.error("Please fill in all the required fields");
+      return; 
+    }
+  
     try {
       const docRef = doc(database, "demo", id);
       await updateDoc(docRef, {
@@ -39,19 +49,46 @@ const navigate = useNavigate()
         lastname: values.lastname,
         email: values.email,
         address: values.address,
-        phoneno : values.phoneno
+        phoneno: values.phoneno
       });
-      console.log("Document successfully updated!");
+      toast.success("Document successfully updated!");
       navigate('/home');
     } catch (error) {
       console.error("Error updating document: ", error);
+      toast.error("Error updating document");
     }
   };
+  
 
   return (
     <>
-    <Stack>
-      <Typography variant="h5">Edit User</Typography>
+    <Stack sx={{
+
+backgroundImage: ` url( ${Image} )`,
+          height: "100vh",
+          overflow: "auto",
+
+          width: "100%",
+    }} >
+    <Stack sx={{
+        width:'50%' ,
+        margin :'auto',
+        border : 1, 
+        padding :4 ,
+        borderColor :'gray',
+        borderRadius :3 ,
+        boxShadow : 10 ,
+        background :'white'
+    }}>
+      <Typography 
+      sx={{fontWeight :'bold' ,
+      fontStyle : 'italic' ,
+      fontSize :'35px' ,
+      textAlign : 'center',
+      textDecoration : 'underline'
+
+      }}
+      variant="h5">Edit User</Typography>
       {userData && (
         <Formik
           initialValues={{
@@ -114,12 +151,19 @@ const navigate = useNavigate()
               />
             </Box>
 
-            <Button variant="contained" type="submit">
+            <Button 
+            sx={{ background:
+                    "linear-gradient(90.9deg, rgb(3, 195, 195) 0.3%, rgb(37, 84, 112) 87.8%)",}}
+            variant="contained" type="submit">
               Save Changes
             </Button>
           </Form>
+          
         </Formik>
       )}
+      <ToastContainer />
+      </Stack>
+      
       </Stack>
     </>
   );

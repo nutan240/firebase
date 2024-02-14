@@ -3,7 +3,7 @@ import { Box, Button, Stack, Typography } from "@mui/material";
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { database } from "../firebase";
 import { useNavigate } from "react-router-dom";
-import Image from "../assets/login1.jpg";
+import Image from "../assets/homeimg.jpg";
 function Home() {
   const [value, setValue] = useState([]);
   const navigate = useNavigate();
@@ -86,7 +86,7 @@ function Home() {
                   borderColor: "#476c6e",
                   boxShadow: "10",
                 
-                  background: "white",
+                  background: "#ebebeb",
                 }}
                 key={values.id}
               >
@@ -121,12 +121,12 @@ function Home() {
                   </Typography>
                 </Box>
                 <Box sx={{ fontSize: "23px", marginTop: "10px" }}>
-                  firstname :{values.firstname}
+                  Firstname :{values.firstname}
                 </Box>
                 <Box sx={{ fontSize: "23px" }}>
-                  lastname : {values.lastname}
+                  Lastname : {values.lastname}
                 </Box>
-                <Box sx={{ fontSize: "23px" }}> address : {values.address}</Box>
+                <Box sx={{ fontSize: "23px" }}> Address : {values.address}</Box>
                 <Box sx={{ fontSize: "23px" }}> phoneno : {values.phoneno}</Box>
                 <Box sx={{ fontSize: "23px" }}> email : {values.email}</Box>
 
