@@ -3,14 +3,18 @@ import { Formik, Form, Field, useFormik } from "formik";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { NavLink, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, database } from "../firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
+import { addDoc, collection } from "firebase/firestore";
 
 function Registration() {
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
+
+  // Reference to the 'demo' collection in Firestore
+  const usersCollection = collection(database, 'demo');
 
   const formik = useFormik({
     initialValues: {
@@ -19,29 +23,31 @@ function Registration() {
       password: "",
     },
     validationSchema: Yup.object({
-      username: Yup.string().required("Please enter your username"),
+      firstname: Yup.string().required("Please enter your username"),
+      lastname: Yup.string().required("Please enter your username"),
       email: Yup.string().email().required("Please enter your email"),
       password: Yup.string().min(6).required("Please enter your password"),
     }),
-    onSubmit: (values) => {
-      if (!values.username || !values.email || !values.password) {
-        setErrorMsg("Fill in all fields");
-        return;
-      }
+    onSubmit: async (values) => {
+    
       setErrorMsg("");
 
-      createUserWithEmailAndPassword(auth, values.email, values.password)
-        .then((res) => {
-          const user = res.user;
-          toast.success("Registration successful!");
-          navigate("/");
-          console.log(user);
-          console.log(res);
-        })
-        .catch((err) => {
-          setErrorMsg(err.message);
-          console.log(err.message);
-        });
+      try {
+       
+        const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
+        
+       
+        await addDoc(usersCollection, { firstname: values.firstname,
+          lastname: values.lastname,
+          email: values.email });
+
+       
+        toast.success("Registration successful!");
+        navigate("/");
+      } catch (error) {
+        setErrorMsg(error.message);
+        console.error(error.message);
+      }
     },
   });
 
@@ -75,7 +81,8 @@ function Registration() {
 
           <Formik
             initialValues={{
-              username: "",
+              firstname: "",
+              lastname : '',
               email: "",
               password: "",
             }}
@@ -90,10 +97,20 @@ function Registration() {
                 <Field
                   as={TextField}
                   fullWidth
-                  label="Username"
+                  label="firstname"
                   type="text"
-                  name="username"
-                  value={formik.values.username}
+                  name="firstname"
+                  value={formik.values.firstname}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                <Field
+                  as={TextField}
+                  fullWidth
+                  label="lastname"
+                  type="text"
+                  name="lastname"
+                  value={formik.values.lastname}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
