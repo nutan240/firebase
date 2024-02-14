@@ -39,7 +39,7 @@ function Registration() {
 
       try {
        
-        const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
+        await createUserWithEmailAndPassword(auth, values.email, values.password);
         
        
         await addDoc(usersCollection, { firstname: values.firstname,

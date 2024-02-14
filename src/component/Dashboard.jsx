@@ -1,10 +1,14 @@
 import React from 'react'
 import Registration from './Registration'
+import { Stack } from '@mui/material'
 
 function Dashboard() {
   return (
    <>
-    <Registration />
+   <Stack>
+   <Registration />
+   </Stack>
+    
    </>
   )
 }

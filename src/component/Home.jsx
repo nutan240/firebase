@@ -4,6 +4,7 @@ import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { database } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import Image from "../assets/homeimg.jpg";
+import Navbar from '../component/Navbar'
 function Home() {
   const [value, setValue] = useState([]);
   const navigate = useNavigate();
@@ -51,6 +52,8 @@ function Home() {
           width: "100%",
         }}
       >
+
+     <Navbar/>
         <Box>
           <Typography
             sx={{
