@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import Image from "../assets/loginimg.jpg";
+import Image from "../assets/loginimg4.jpg";
 
 function Logiin() {
   const [errorMsg, setErrorMsg] = useState('');
@@ -48,9 +48,13 @@ function Logiin() {
     <>
       <Stack
         sx={{
+          backgroundImage: ` url( ${Image} )`,
+          objectFit :'cover' ,
+          position : 'center',
           overflow: "auto",
           height: "100vh",
           width: "100%",
+
         }}
       >
         <Stack
@@ -62,6 +66,7 @@ function Logiin() {
             padding: 5,
             height: 290,
             background: "rgb(255 255 255)",
+            borderRadius :3
           }}
           className="form_container"
         >

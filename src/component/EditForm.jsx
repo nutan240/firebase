@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { database } from "../firebase";
@@ -35,8 +35,11 @@ const navigate = useNavigate()
     try {
       const docRef = doc(database, "demo", id);
       await updateDoc(docRef, {
-        username: values.username,
+        firstname: values.firstname,
+        lastname: values.lastname,
         email: values.email,
+        address: values.address,
+        phoneno : values.phoneno
       });
       console.log("Document successfully updated!");
       navigate('/home');
@@ -47,30 +50,45 @@ const navigate = useNavigate()
 
   return (
     <>
+    <Stack>
       <Typography variant="h5">Edit User</Typography>
       {userData && (
         <Formik
           initialValues={{
-            username: userData.username,
+            firstname : userData.firstname ,
+            address :  userData.address  ,
+            phoneno :  userData.phoneno  ,
+            lastname : userData.lastname ,
             email: userData.email,
           }}
           validationSchema={Yup.object({
-            username: Yup.string().required("Please enter your username"),
+            firstname: Yup.string().required("Please enter your username"),
+            lastname: Yup.string().required("Please enter your username"),
             email: Yup.string().email().required("Please enter your email"),
           })}
           onSubmit={handleSubmit}
         >
           <Form>
-            <Box sx={{ width: "300px", margin: "20px 0" }}>
+            <Box sx={{  margin: "20px 0" }}>
               <Field
                 as={TextField}
                 fullWidth
-                label="Username"
+                label="firstname"
                 type="text"
-                name="username"
+                name="firstname"
               />
             </Box>
-            <Box sx={{ width: "300px", margin: "20px 0" }}>
+            <Box sx={{  margin: "20px 0" }}>
+              <Field
+                as={TextField}
+                fullWidth
+                label="lastname"
+                type="text"
+                name="lastname"
+              />
+            </Box>
+
+            <Box sx={{ margin: "20px 0" }}>
               <Field
                 as={TextField}
                 fullWidth
@@ -78,13 +96,31 @@ const navigate = useNavigate()
                 type="email"
                 name="email"
               />
+            </Box> <Box sx={{  margin: "20px 0" }}>
+              <Field
+                as={TextField}
+                fullWidth
+                label="Addres"
+                type="text"
+                name="address"
+              />
+            </Box> <Box sx={{  margin: "20px 0" }}>
+              <Field
+                as={TextField}
+                fullWidth
+                label="phoneno"
+                type="text"
+                name="phoneno"
+              />
             </Box>
+
             <Button variant="contained" type="submit">
               Save Changes
             </Button>
           </Form>
         </Formik>
       )}
+      </Stack>
     </>
   );
 }
