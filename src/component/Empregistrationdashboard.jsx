@@ -17,7 +17,7 @@ function Empregistrationdashboard() {
     const navigate = useNavigate();
   
    
-    const usersCollection = collection(database, 'demo');
+    const usersCollection = collection(database, 'demo1');
   
     const formik = useFormik({
       initialValues: {
@@ -52,7 +52,7 @@ function Empregistrationdashboard() {
   
          
           toast.success("Registration successful!");
-          navigate("/");
+          navigate("/home");
         } catch (error) {
           setErrorMsg(error.message);
           console.error(error.message);
@@ -252,8 +252,17 @@ function Empregistrationdashboard() {
                   }}
                   type="submit"
                 >
-                  Sign Up
+                  add employee
                 </Button>
+                <NavLink to={'/home'} >
+            <Button 
+            sx={{ background:
+                    "linear-gradient(90.9deg, rgb(3, 195, 195) 0.3%, rgb(37, 84, 112) 87.8%)", width:'100%'}}
+            variant="contained" >
+              cancel
+            </Button>
+
+            </NavLink>
               </Stack>
             </Form>
           </Formik>

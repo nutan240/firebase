@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import Image from "../assets/loginimg3.jpg";
+import Image from "../assets/gifimg.gif";
 
 function Logiin() {
   const [errorMsg, setErrorMsg] = useState('');
@@ -34,7 +34,7 @@ function Logiin() {
         .then((res) => {
           const user = res.user;
           toast.success('Login successful!');
-          localStorage.setItem('user', JSON.stringify(user)); // Store user info in local storage
+          localStorage.setItem('user', JSON.stringify(user)); 
           navigate('/home');
           console.log(res);
         })

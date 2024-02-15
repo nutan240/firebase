@@ -9,6 +9,7 @@ import EditForm from "./component/EditForm";
 import Protected from "./Router/Protected"; 
 import Profile from "./component/Profile";
 import Empregistrationdashboard from "./component/Empregistrationdashboard";
+import Empdetails from "./component/Empdetails";
 
 function App() {
   return (
@@ -19,9 +20,10 @@ function App() {
           <Route path="/" element={<Logiin />} />
           <Route path="/home" element={<Protected Component={Home} />} />
           
-          <Route path="/edit/:id" element={<Protected Component={EditForm} />} />
+          <Route path="/edit/:id" element={<EditForm />} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/dashboard" element={<Empregistrationdashboard/>} />
+          <Route path="/empdetails" element={<Empdetails/>} />
         </Routes>
       </Router>
     </>

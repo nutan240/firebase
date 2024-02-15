@@ -21,16 +21,16 @@ function Registration() {
     initialValues: {
       firstname: "",
       lastname: "",
-      address : '',
+     
       email: "",
       password: "",
     },
     validationSchema: Yup.object({
       firstname: Yup.string().required("Please enter your firstname"),
       lastname: Yup.string().required("Please enter your lastname"),
-      address: Yup.string().required("Please enter your address"),
+      
       email: Yup.string().email().required("Please enter your email"),
-      phoneno: Yup.number().min(6).required("Please enter your phoneno"),
+      
       password: Yup.string().min(6).required("Please enter your password"),
     }),
     onSubmit: async (values) => {
@@ -39,13 +39,12 @@ function Registration() {
 
       try {
        
-        await createUserWithEmailAndPassword(auth, values.email, values.password , );
+        await createUserWithEmailAndPassword(auth, values.email, values.password);
         
        
         await addDoc(usersCollection, { firstname: values.firstname,
           lastname: values.lastname,
-          address: values.address,
-          phoneno : values.phoneno ,
+          
           email: values.email });
 
        
@@ -62,7 +61,7 @@ function Registration() {
     <>
       <Stack
         sx={{
-          backgroundImage: ` url( ${Image} )`,
+          backgroundImage: ` url(https://media.giphy.com/media/U3qYN8S0j3bpK/giphy.gif)`,
           objectFit :'cover' ,
           position : 'center',
           overflow: "auto",
@@ -173,52 +172,7 @@ function Registration() {
                     formik.touched.email &&
                     formik.errors.email}
                 </Typography>
-                <Field
-                  as={TextField}
-                  fullWidth
-                  label="Address"
-                  type="text"
-                  name="address"
-                  value={formik.values.address}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-
-<Typography
-                  variant="p"
-                  sx={{
-                    fontSize: "13px",
-                    fontStyle: "italic",
-                  }}
-                  color={"red"}
-                >
-                  {formik.errors.address &&
-                    formik.touched.address &&
-                    formik.errors.address}
-                </Typography>
-                <Field
-                  as={TextField}
-                  fullWidth
-                  label="phone No."
-                  type="text"
-                  name="phoneno"
-                  value={formik.values.phoneno}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-
-<Typography
-                  variant="p"
-                  sx={{
-                    fontSize: "13px",
-                    fontStyle: "italic",
-                  }}
-                  color={"red"}
-                >
-                  {formik.errors.phoneno &&
-                    formik.touched.phoneno &&
-                    formik.errors.phoneno}
-                </Typography>
+                
                 <Field
                   as={TextField}
                   fullWidth

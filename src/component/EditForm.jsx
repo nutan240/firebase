@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { database } from "../firebase";
 import * as Yup from "yup";
@@ -17,7 +17,7 @@ const navigate = useNavigate()
   useEffect(() => {
     const getUserData = async () => {
       try {
-        const docRef = doc(database, "demo", id);
+        const docRef = doc(database, "demo1", id);
         const docSnap = await getDoc(docRef);
 
         console.log(docSnap , 'docSnapdocSnapdocSnap')
@@ -43,7 +43,7 @@ const navigate = useNavigate()
     }
   
     try {
-      const docRef = doc(database, "demo", id);
+      const docRef = doc(database, "demo1", id);
       await updateDoc(docRef, {
         firstname: values.firstname,
         lastname: values.lastname,
@@ -157,6 +157,16 @@ backgroundImage: ` url( ${Image} )`,
             variant="contained" type="submit">
               Save Changes
             </Button>
+
+            <NavLink to={'/home'} >
+            <Button 
+            sx={{ background:
+                    "linear-gradient(90.9deg, rgb(3, 195, 195) 0.3%, rgb(37, 84, 112) 87.8%)", marginLeft :'20px'}}
+            variant="contained" >
+              cancel
+            </Button>
+
+            </NavLink>
           </Form>
           
         </Formik>
