@@ -30,10 +30,11 @@ function Logiin() {
       }
       setErrorMsg('');
 
-      signInWithEmailAndPassword(auth, values.email, values.password)
+      signInWithEmailAndPassword(auth, values.email, values.password , values.firstname)
         .then((res) => {
           const user = res.user;
           toast.success('Login successful!');
+          localStorage.setItem('user', JSON.stringify(user)); // Store user info in local storage
           navigate('/home');
           console.log(res);
         })
@@ -43,7 +44,6 @@ function Logiin() {
         });
     },
   });
-
   return (
     <>
       <Stack

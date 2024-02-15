@@ -10,57 +10,60 @@ import * as Yup from "yup";
 import { addDoc, collection } from "firebase/firestore";
 import Image from "../assets/loginimg3.jpg";
 
-function Registration() {
-  const [errorMsg, setErrorMsg] = useState("");
-  const navigate = useNavigate();
 
- 
-  const usersCollection = collection(database, 'demo');
+function Empregistrationdashboard() {
 
-  const formik = useFormik({
-    initialValues: {
-      firstname: "",
-      lastname: "",
-      address : '',
-      email: "",
-      password: "",
-    },
-    validationSchema: Yup.object({
-      firstname: Yup.string().required("Please enter your firstname"),
-      lastname: Yup.string().required("Please enter your lastname"),
-      address: Yup.string().required("Please enter your address"),
-      email: Yup.string().email().required("Please enter your email"),
-      phoneno: Yup.number().min(6).required("Please enter your phoneno"),
-      password: Yup.string().min(6).required("Please enter your password"),
-    }),
-    onSubmit: async (values) => {
-    
-      setErrorMsg("");
-
-      try {
-       
-        await createUserWithEmailAndPassword(auth, values.email, values.password , );
-        
-       
-        await addDoc(usersCollection, { firstname: values.firstname,
-          lastname: values.lastname,
-          address: values.address,
-          phoneno : values.phoneno ,
-          email: values.email });
-
-       
-        toast.success("Registration successful!");
-        navigate("/");
-      } catch (error) {
-        setErrorMsg(error.message);
-        console.error(error.message);
-      }
-    },
-  });
+    const [errorMsg, setErrorMsg] = useState("");
+    const navigate = useNavigate();
+  
+   
+    const usersCollection = collection(database, 'demo');
+  
+    const formik = useFormik({
+      initialValues: {
+        firstname: "",
+        lastname: "",
+        address : '',
+        email: "",
+        password: "",
+      },
+      validationSchema: Yup.object({
+        firstname: Yup.string().required("Please enter your firstname"),
+        lastname: Yup.string().required("Please enter your lastname"),
+        address: Yup.string().required("Please enter your address"),
+        email: Yup.string().email().required("Please enter your email"),
+        phoneno: Yup.number().min(6).required("Please enter your phoneno"),
+        password: Yup.string().min(6).required("Please enter your password"),
+      }),
+      onSubmit: async (values) => {
+      
+        setErrorMsg("");
+  
+        try {
+         
+          await createUserWithEmailAndPassword(auth, values.email, values.password , );
+          
+         
+          await addDoc(usersCollection, { firstname: values.firstname,
+            lastname: values.lastname,
+            address: values.address,
+            phoneno : values.phoneno ,
+            email: values.email });
+  
+         
+          toast.success("Registration successful!");
+          navigate("/");
+        } catch (error) {
+          setErrorMsg(error.message);
+          console.error(error.message);
+        }
+      },
+    });
+  
 
   return (
-    <>
-      <Stack
+   <>
+     <Stack
         sx={{
           backgroundImage: ` url( ${Image} )`,
           objectFit :'cover' ,
@@ -88,7 +91,7 @@ function Registration() {
             sx={{ fontWeight: "bold", paddingBottom: "15px" }}
             variant="h5"
           >
-            Sign Up
+          fill details
           </Typography>
 
           <Formik
@@ -255,20 +258,12 @@ function Registration() {
             </Form>
           </Formik>
 
-          <Box sx={{ paddingTop: 3 }}>
-            <NavLink
-              style={{ color: "#1565c0", paddingTop: 3 }}
-              to={"/"}
-              variant="body2"
-            >
-              Already have an account? Sign in
-            </NavLink>
-          </Box>
+        
         </Stack>
       </Stack>
       <ToastContainer />
-    </>
-  );
+   </>
+  )
 }
 
-export default Registration;
+export default Empregistrationdashboard

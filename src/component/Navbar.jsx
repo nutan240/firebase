@@ -11,25 +11,36 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
 import { NavLink, useNavigate } from "react-router-dom";
 import { Card, Stack } from "@mui/material";
-// import { jwtDecode } from "jwt-decode";
-
-
-// const settings = ["Profile",   "Logout"];
+import { database } from "../firebase";
 
 function ResponsiveNavBar() {
-
-  const [userProfileInfo, setuserProfileInfo] = React.useState("");
+  const [userProfileInfo, setUserProfileInfo] = React.useState("");
 
   React.useEffect(() => {
-    // const token = localStorage.getItem("token");
-    // const decode = jwtDecode(token);
-    setuserProfileInfo();
-    
-  }, []);
+    const getUserInfo = async () => {
+      try {
+        const userInfo = JSON.parse(localStorage.getItem("user"));
+        const q = query(
+          collection(database, "demo"),
+          where("email", "==", userInfo.email)
+        );
+        const querySnapshot = await getDocs(q);
+        const userData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setUserProfileInfo(userData[0]);
+      } catch (error) {
+        console.error("Error getting user information: ", error);
+      }
+    };
 
+    getUserInfo();
+  }, []);
 
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -52,18 +63,23 @@ function ResponsiveNavBar() {
     navigate("/");
   };
 
-   const userprofile = ()=>{
+  const userprofile = () => {
     navigate("/profile");
-   }
+  };
 
   const handleCloseUserMenu = () => {
-    
     setAnchorElUser(null);
   };
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl" sx={{ background: 'linear-gradient(90.9deg, rgb(3, 195, 195) 0.3%, rgb(37, 84, 112) 87.8%)',}}>
+      <Container
+        maxWidth="xl"
+        sx={{
+          background:
+            "linear-gradient(90.9deg, rgb(3, 195, 195) 0.3%, rgb(37, 84, 112) 87.8%)",
+        }}
+      >
         <Toolbar disableGutters>
           <Typography
             variant="h6"
@@ -94,9 +110,66 @@ function ResponsiveNavBar() {
             >
               <MenuIcon />
             </IconButton>
-           
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: "block", md: "none" },
+              }}
+            >
+              <NavLink
+                style={{
+                  width: "30px",
+                  color: "black",
+                }}
+                to={"/dashboard"}
+              >
+                <Typography
+                  sx={{
+                    width: "100px",
+                    color: "#8c7569",
+                    fontWeight: "bold",
+                    fontSize: "14px",
+                  }}
+                  textAlign="center"
+                >
+                  add employee
+                </Typography>
+              </NavLink>
+              <NavLink
+                style={{
+                  width: "20px",
+                  color: "black",
+                }}
+                to={"/userdetails"}
+              >
+                <Typography
+                  sx={{
+                    width: "100px",
+                    marginTop: "10px",
+                    color: "#8c7569",
+                    fontWeight: "bold",
+                    fontSize: "14px",
+                  }}
+                  textAlign="center"
+                >
+                  POLL USERS
+                </Typography>
+              </NavLink>
+            </Menu>
           </Box>
-          
+
           <Typography
             variant="h5"
             noWrap
@@ -116,18 +189,30 @@ function ResponsiveNavBar() {
             EMPLOYEE DETAILS APP
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-           
+          <NavLink
+              style={{ textDecoration: "none", color: "black" }}
+              to={"/dashboard"}
+            >
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                add employee
+              </Button>
+            </NavLink>
 
-            
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-  <Avatar alt="Remy Sharp"></Avatar>
-</IconButton>
-
-</Tooltip>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                {userProfileInfo && (
+                  <Avatar alt="User Avatar">
+                    {userProfileInfo.firstname.charAt(0)}
+                  </Avatar>
+                )}
+              </IconButton>
+            </Tooltip>
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
@@ -144,9 +229,7 @@ function ResponsiveNavBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-            
-                <MenuItem>
-                  
+              <MenuItem>
                 <Stack>
                   <Typography
                     sx={{
@@ -160,7 +243,6 @@ function ResponsiveNavBar() {
                         fontWeight: "bold",
                         paddingX: 1,
                       }}
-
                       onClick={userprofile}
                     >
                       profile
@@ -178,8 +260,7 @@ function ResponsiveNavBar() {
                     </Button>
                   </Typography>
                 </Stack>
-                </MenuItem>
-              
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
