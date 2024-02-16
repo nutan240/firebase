@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
-import { database } from "../firebase";
+import { auth, database } from "../firebase";
 import { NavLink, useNavigate } from "react-router-dom";
 import Image from "../assets/homeimg.jpg";
 import Navbar from '../component/Navbar'
@@ -13,7 +13,9 @@ function Home() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const querySnapshot = await getDocs(collection(database, "demo1"));
+        const currentUser = auth.currentUser;
+        const userId = currentUser.uid;
+        const querySnapshot = await getDocs(collection(database, `demo/${userId}/posts`));
         const data = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -32,7 +34,7 @@ function Home() {
 
   const handleDelete = async (id) => {
       try {
-        const deletvalue = doc(database, "demo1", id);
+        const deletvalue = doc(database, "demo", id);
         await deleteDoc(deletvalue);
         setValue((prevValue) => prevValue.filter((item) => item.id !== id));
       } catch (error) {
@@ -90,7 +92,7 @@ function Home() {
       <Stack sx={{ display: "flex", flexWrap: "wrap", width:{ lg :"48%" , sm : '100%' , xs :'100%'} }}>
         <Stack
           sx={{
-           
+            border: 2,
             borderRadius: 4,
             padding: 3,
             borderColor: "#476c6e",

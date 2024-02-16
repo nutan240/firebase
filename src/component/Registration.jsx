@@ -15,7 +15,7 @@ function Registration() {
   const navigate = useNavigate();
 
  
-  const usersCollection = collection(database, 'demo');
+  const usersCollection = collection(database, 'posts');
 
   const formik = useFormik({
     initialValues: {

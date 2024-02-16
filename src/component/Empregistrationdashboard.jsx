@@ -1,49 +1,72 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, useFormik } from "formik";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { NavLink, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { collection, addDoc } from "firebase/firestore";
 import { auth, database } from "../firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
-import { addDoc, collection } from "firebase/firestore";
 import Image from "../assets/loginimg3.jpg";
 
 function Empregistrationdashboard() {
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
+  const [userPostsCollection, setUserPostsCollection] = useState(null);
 
-  const usersCollection = collection(database, "demo1");
-
+  useEffect(() => {
+    const fetchUserPostsCollection = async () => {
+      try {
+        const currentUser = auth.currentUser;
+  
+        if (currentUser) {
+          const userId = currentUser.uid;
+          const userPostsCol = collection(database, `demo/${userId}/posts`);
+          setUserPostsCollection(userPostsCol);
+        } else {
+          console.error('No current user found.');
+        }
+      } catch (error) {
+        console.error('Error fetching user posts collection:', error);
+      }
+    };
+  
+    fetchUserPostsCollection();
+  }, []);
+  
   const formik = useFormik({
     initialValues: {
       firstname: "",
       lastname: "",
       address: "",
       email: "",
+      phoneno: "",
     },
     validationSchema: Yup.object({
       firstname: Yup.string().required("Please enter your firstname"),
       lastname: Yup.string().required("Please enter your lastname"),
       address: Yup.string().required("Please enter your address"),
       email: Yup.string().email().required("Please enter your email"),
-      phoneno: Yup.number().min(6).required("Please enter your phoneno"),
+      phoneno: Yup.string().required("Please enter your phoneno"),
     }),
     onSubmit: async (values) => {
       setErrorMsg("");
 
       try {
-        await addDoc(usersCollection, {
-          firstname: values.firstname,
-          lastname: values.lastname,
-          address: values.address,
-          phoneno: values.phoneno,
-          email: values.email,
-        });
+        if (userPostsCollection) {
+          await addDoc(userPostsCollection, {
+            firstname: values.firstname,
+            lastname: values.lastname,
+            address: values.address,
+            phoneno: values.phoneno,
+            email: values.email,
+          });
 
-        toast.success("Registration successful!");
-        navigate("/home");
+          toast.success("Registration successful!");
+          navigate("/home");
+        } else {
+          console.error('User posts collection not initialized');
+        }
       } catch (error) {
         setErrorMsg(error.message);
         console.error(error.message);
@@ -55,7 +78,7 @@ function Empregistrationdashboard() {
     <>
       <Stack
         sx={{
-          backgroundImage: ` url( ${Image} )`,
+          backgroundImage: `url(${Image})`,
           objectFit: "cover",
           position: "center",
           overflow: "auto",
@@ -72,7 +95,6 @@ function Empregistrationdashboard() {
             padding: 5,
             height: "auto",
             background: "white",
-
             borderRadius: 4,
           }}
           className="form_container"
@@ -81,7 +103,7 @@ function Empregistrationdashboard() {
             sx={{ fontWeight: "bold", paddingBottom: "15px" }}
             variant="h5"
           >
-            fill details
+            Fill Details
           </Typography>
 
           <Formik
@@ -89,8 +111,8 @@ function Empregistrationdashboard() {
               firstname: "",
               lastname: "",
               email: "",
-
               phoneno: "",
+              address: "",
             }}
             onSubmit={formik.handleSubmit}
           >
@@ -110,18 +132,8 @@ function Empregistrationdashboard() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <Typography
-                  variant="p"
-                  sx={{
-                    fontSize: "13px",
-                    fontStyle: "italic",
-                  }}
-                  color={"red"}
-                >
-                  {formik.errors.firstname &&
-                    formik.touched.firstname &&
-                    formik.errors.firstname}
-                </Typography>
+                {/* Validation error messages */}
+
                 <Field
                   as={TextField}
                   fullWidth
@@ -132,18 +144,8 @@ function Empregistrationdashboard() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <Typography
-                  variant="p"
-                  sx={{
-                    fontSize: "13px",
-                    fontStyle: "italic",
-                  }}
-                  color={"red"}
-                >
-                  {formik.errors.lastname &&
-                    formik.touched.lastname &&
-                    formik.errors.lastname}
-                </Typography>
+                {/* Validation error messages */}
+
                 <Field
                   as={TextField}
                   fullWidth
@@ -154,18 +156,8 @@ function Empregistrationdashboard() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <Typography
-                  variant="p"
-                  sx={{
-                    fontSize: "13px",
-                    fontStyle: "italic",
-                  }}
-                  color={"red"}
-                >
-                  {formik.errors.email &&
-                    formik.touched.email &&
-                    formik.errors.email}
-                </Typography>
+                {/* Validation error messages */}
+
                 <Field
                   as={TextField}
                   fullWidth
@@ -176,42 +168,19 @@ function Empregistrationdashboard() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
+                {/* Validation error messages */}
 
-                <Typography
-                  variant="p"
-                  sx={{
-                    fontSize: "13px",
-                    fontStyle: "italic",
-                  }}
-                  color={"red"}
-                >
-                  {formik.errors.address &&
-                    formik.touched.address &&
-                    formik.errors.address}
-                </Typography>
                 <Field
                   as={TextField}
                   fullWidth
-                  label="phone No."
+                  label="Phone No."
                   type="text"
                   name="phoneno"
                   value={formik.values.phoneno}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-
-                <Typography
-                  variant="p"
-                  sx={{
-                    fontSize: "13px",
-                    fontStyle: "italic",
-                  }}
-                  color={"red"}
-                >
-                  {formik.errors.phoneno &&
-                    formik.touched.phoneno &&
-                    formik.errors.phoneno}
-                </Typography>
+                {/* Validation error messages */}
 
                 <Button
                   variant="contained"
@@ -221,7 +190,7 @@ function Empregistrationdashboard() {
                   }}
                   type="submit"
                 >
-                  add employee
+                  Add Employee
                 </Button>
                 <NavLink to={"/home"}>
                   <Button
@@ -232,7 +201,7 @@ function Empregistrationdashboard() {
                     }}
                     variant="contained"
                   >
-                    cancel
+                    Cancel
                   </Button>
                 </NavLink>
               </Stack>
