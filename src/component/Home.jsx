@@ -90,7 +90,7 @@ function Home() {
       <Stack sx={{ display: "flex", flexWrap: "wrap", width:{ lg :"48%" , sm : '100%' , xs :'100%'} }}>
         <Stack
           sx={{
-            border: 2,
+           
             borderRadius: 4,
             padding: 3,
             borderColor: "#476c6e",
