@@ -12,6 +12,7 @@ function Profile() {
   const getUserInfo = async () => {
     try {
       const userInfo = JSON.parse(localStorage.getItem('user'));
+   
       const q = query(collection(database, 'demo'), where('email', '==', userInfo.email));
       const querySnapshot = await getDocs(q);
       const userData = querySnapshot.docs.map(doc => ({
@@ -25,7 +26,7 @@ function Profile() {
   };
 
   getUserInfo();
-}, []);
+}, [userInfo ,userData]);
 
   const userInfo = JSON.parse(localStorage.getItem('user'));
 console.log( userInfo , 'userInfouserInfo')

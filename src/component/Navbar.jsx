@@ -111,6 +111,7 @@ function ResponsiveNavBar() {
               <MenuIcon />
             </IconButton>
             <Menu
+            
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -137,14 +138,14 @@ function ResponsiveNavBar() {
               >
                 <Typography
                   sx={{
-                    width: "100px",
+                    width: "130px",
                     color: "#8c7569",
                     fontWeight: "bold",
                     fontSize: "14px",
                   }}
                   textAlign="center"
                 >
-                  add employee
+                  ADD EMPLOYEE
                 </Typography>
               </NavLink>
               <NavLink
@@ -152,7 +153,7 @@ function ResponsiveNavBar() {
                   width: "20px",
                   color: "black",
                 }}
-                to={"/userdetails"}
+                to={"/empdetails"}
               >
                 <Typography
                   sx={{
@@ -164,7 +165,7 @@ function ResponsiveNavBar() {
                   }}
                   textAlign="center"
                 >
-                  POLL USERS
+                 EMP DETAILS
                 </Typography>
               </NavLink>
             </Menu>
@@ -189,7 +190,7 @@ function ResponsiveNavBar() {
             EMPLOYEE DETAILS APP
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-          <NavLink
+            <NavLink
               style={{ textDecoration: "none", color: "black" }}
               to={"/dashboard"}
             >
@@ -200,19 +201,27 @@ function ResponsiveNavBar() {
                 add employee
               </Button>
             </NavLink>
-
+            {/* <NavLink
+              style={{ textDecoration: "none", color: "black" }}
+              to={"/empdetails"}
+            >
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                 employee details
+              </Button>
+            </NavLink> */}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              
-              {userProfileInfo && userProfileInfo.firstname && (
-  <Avatar alt="User Avatar">{userProfileInfo.firstname.charAt(0)}</Avatar>
-)}
-
-
-
+                {/* {userProfileInfo && userProfileInfo.firstname && ( */}
+                  <Avatar alt="User Avatar">
+                    {/* {userProfileInfo.firstname.charAt(0)} */}
+                  </Avatar>
+                {/* )} */}
               </IconButton>
             </Tooltip>
             <Menu
