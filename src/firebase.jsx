@@ -1,18 +1,20 @@
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import {getFirestore} from 'firebase/firestore'
 const firebaseConfig = {
-  apiKey: "AIzaSyAe9rC1nZrbi03G4LVSEr4chHBIOUyP5eU",
-  authDomain: "fir-crud-cf42e.firebaseapp.com",
-  projectId: "fir-crud-cf42e",
-  storageBucket: "fir-crud-cf42e.appspot.com",
-  messagingSenderId: "96010567576",
-  appId: "1:96010567576:web:b905d62198d131a9be75ed"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  
+  
 };
 
 const app = initializeApp(firebaseConfig);
-const database = getFirestore()
+const database = getFirestore();
 const auth = getAuth();
 
-export { app ,auth , database} ;
+export { app, auth, database };

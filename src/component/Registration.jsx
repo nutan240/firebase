@@ -40,7 +40,7 @@ function Registration() {
       try {
        
         await createUserWithEmailAndPassword(auth, values.email, values.password);
-        
+        console.log(auth  , 'auth auth ')
        
         await addDoc(usersCollection, { firstname: values.firstname,
           lastname: values.lastname,
