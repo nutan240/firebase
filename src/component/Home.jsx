@@ -3,7 +3,7 @@ import { Box, Button, Stack, Typography } from "@mui/material";
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { auth, database } from "../firebase";
 import { NavLink, useNavigate } from "react-router-dom";
-import Image from "../assets/homeimg.jpg";
+import Image from "../assets/flower1.jpg";
 import Navbar from '../component/Navbar'
 function Home() {
  
@@ -33,14 +33,17 @@ function Home() {
   console.log(value , 'value')
 
   const handleDelete = async (id) => {
-      try {
-        const deletvalue = doc(database, "demo", id);
-        await deleteDoc(deletvalue);
-        setValue((prevValue) => prevValue.filter((item) => item.id !== id));
-      } catch (error) {
-        console.error("Error deleting document: ", error);
-      }
-    };
+    try {
+      const currentUser = auth.currentUser;
+      const userId = currentUser.uid; 
+      const deletvalue = doc(database, `demo/${userId}/posts`, id);
+      await deleteDoc(deletvalue);
+      setValue((prevValue) => prevValue.filter((item) => item.id !== id));
+    } catch (error) {
+      console.error("Error deleting document: ", error);
+    }
+  };
+  
   
     const handleEdit = (id) => {
       navigate(`/edit/${id}`);
@@ -53,9 +56,11 @@ function Home() {
        <Stack
   sx={{
     backgroundImage: ` url( ${Image} )`,
+    backdropFilter : 'blur(5px)' ,
     height: "100vh",
     overflow: "auto",
-
+    backgroundSize: "cover",
+          backgroundPosition: "center",
     width: "100%",
   }}
 >
@@ -69,10 +74,11 @@ function Home() {
         textAlign: "center",
         fontStyle: "italic",
         fontWeight: "bold",
-        fontSize: "33px",
+        fontSize: "47px",
         width: "100%",
         marginBottom :'30px'
         , textDecoration: "underline",
+        color :'white'
       }}
     >
       EMPLOYEE DETAILS
@@ -95,10 +101,11 @@ function Home() {
             border: 2,
             borderRadius: 4,
             padding: 3,
-            borderColor: "#476c6e",
+            borderColor: "#a3aba2",
             boxShadow: "10",
           
-            background: "#ebebeb",
+            background: "#a3aba2",
+            // color:'white'
           }}
           key={values.id}
         >
@@ -147,6 +154,8 @@ function Home() {
               fontStyle: "italic",
               fontSize: "16px",
               textDecoration: "underline",
+              fontWeight:'bold',
+              // color:'white'
             }}
             onClick={() => handleEdit(values.id)}
           >

@@ -77,7 +77,7 @@ function ResponsiveNavBar() {
         maxWidth="xl"
         sx={{
           background:
-            "linear-gradient(90.9deg, rgb(3, 195, 195) 0.3%, rgb(37, 84, 112) 87.8%)",
+            "linear-gradient(90.9deg, #999 0.3%, rgb(37, 84, 112) 87.8%)",
         }}
       >
         <Toolbar disableGutters>
@@ -148,7 +148,7 @@ function ResponsiveNavBar() {
                   ADD EMPLOYEE
                 </Typography>
               </NavLink>
-              <NavLink
+              {/* <NavLink
                 style={{
                   width: "20px",
                   color: "black",
@@ -167,7 +167,7 @@ function ResponsiveNavBar() {
                 >
                  EMP DETAILS
                 </Typography>
-              </NavLink>
+              </NavLink> */}
             </Menu>
           </Box>
 

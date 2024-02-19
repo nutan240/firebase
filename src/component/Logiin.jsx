@@ -40,7 +40,7 @@ function Logiin() {
             firstname: values.firstname,
           };
           localStorage.setItem("user", JSON.stringify(user));
-          toast.success("Login successful!");
+          // toast.success("Login successful!");
           navigate("/home");
         })
         .catch((err) => {
@@ -57,22 +57,26 @@ function Logiin() {
           objectFit: "cover",
           position: "center",
           overflow: "auto",
-          height: "80vh",
-
+          height: { lg: "0%", sm: "100vh", xs: "100vh" },
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
           display: "flex",
           background: "#006369a3",
-          padding: 9,
-          borderRadius: 3,
+          padding: { lg: 9, sm: 3, xs: 0 },
         }}
       >
         <Stack
           direction={"row"}
           sx={{
             display: "flex",
-            width: { lg: "70%", sm: "100%", xs: "auto" },
+            alignItems: "center",
             justifyContent: "center",
-            margin: "auto",
-            height: "80vh",
+            overflow: "hidden",
+            width: { lg: "70%", sm: "100%", xs: "100%" },
+
+            margin: { lg: "auto", sm: "0px" },
+            height: { lg: "80vh", sm: "90%" },
           }}
         >
           <Stack
@@ -87,29 +91,32 @@ function Logiin() {
               color: "white",
               borderTopLeftRadius: 6,
               borderBottomLeftRadius: 8,
-              display :{ lg :'block' , sm  :'block' , xs : 'none'} ,
-               justifyItems: "center",
-               display : 'flex'
-
+              display: { lg: "block", sm: "none" },
+              display: "flex",
+              alignItems: "center",
+              justifyItems: "center",
+              display: { lg: "block", sm: "none", xs: "none" },
             }}
           >
             <Box
               sx={{
-                width: { lg :"70%", sm : '50%'},
+                width: { lg: "70%", sm: "70%" },
                 fontStyle: "italic",
                 fontWeight: "bold",
-                justifyItems: "center",
+                display: "flex",
                 alignItems: "center",
-                margin: "auto",
+                justifyContent: "center",
+                height: "400px",
+                marginX: "auto",
+                marginTop: "160px",
                 fontSize: "26px",
-                
-               
-           }}
+                display: { lg: "block", sm: "none" },
+              }}
             >
               <Typography
                 sx={{
-                  fontSize: { lg :"35px", sm : '30px' , sx :'0px'} ,
-                  width: { lg :"70%", sm : '90%'},
+                  fontSize: { lg: "35px", sm: "30px", sx: "0px" },
+                  width: { lg: "70%", sm: "60%" },
                 }}
               >
                 JOIN OUR{" "}
@@ -127,14 +134,14 @@ function Logiin() {
 
           <Stack
             sx={{
-              width: { lg: "50%", sm : '50%' , xs:"100%",  },
-              // width: "50% ",
-              margin: "auto",
+              width: { lg: "50%", sm: "100%", xs: "100%" },
+
+              margin: { lg: "auto", sm: "0px" },
               boxShadow: 3,
-              padding: {lg :5, sm : 5 , xs : 2} ,
-              height: "80%",
+              padding: { lg: 5, sm: 6, xs: 4 },
+              height: { lg: "80%", sm: "100%", xs: "100vh" },
               background: "rgb(255 255 255)",
-             
+
               borderTopRightRadius: 9,
               borderBottomRightRadius: 9,
             }}

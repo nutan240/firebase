@@ -47,7 +47,8 @@ function Empregistrationdashboard() {
       lastname: Yup.string().required("Please enter your lastname"),
       address: Yup.string().required("Please enter your address"),
       email: Yup.string().email().required("Please enter your email"),
-      phoneno: Yup.string().required("Please enter your phoneno"),
+      phoneno: Yup.number()  .min(10, "Phone number must be at least 10 digits")
+      .required("Please enter your phoneno"),
     }),
     onSubmit: async (values) => {
       setErrorMsg("");
@@ -132,7 +133,18 @@ function Empregistrationdashboard() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {/* Validation error messages */}
+                <Typography
+                  variant="p"
+                  sx={{
+                    fontSize: "13px",
+                    fontStyle: "italic",
+                  }}
+                  color={"red"}
+                >
+                  {formik.errors.firstname &&
+                    formik.touched.firstname &&
+                    formik.errors.firstname}
+                </Typography>
 
                 <Field
                   as={TextField}
@@ -144,7 +156,18 @@ function Empregistrationdashboard() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {/* Validation error messages */}
+                <Typography
+                  variant="p"
+                  sx={{
+                    fontSize: "13px",
+                    fontStyle: "italic",
+                  }}
+                  color={"red"}
+                >
+                  {formik.errors.lastname &&
+                    formik.touched.lastname &&
+                    formik.errors.lastname}
+                </Typography>
 
                 <Field
                   as={TextField}
@@ -156,7 +179,18 @@ function Empregistrationdashboard() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {/* Validation error messages */}
+             <Typography
+                  variant="p"
+                  sx={{
+                    fontSize: "13px",
+                    fontStyle: "italic",
+                  }}
+                  color={"red"}
+                >
+                  {formik.errors.email &&
+                    formik.touched.email &&
+                    formik.errors.email}
+                </Typography>
 
                 <Field
                   as={TextField}
@@ -168,7 +202,18 @@ function Empregistrationdashboard() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {/* Validation error messages */}
+              <Typography
+                  variant="p"
+                  sx={{
+                    fontSize: "13px",
+                    fontStyle: "italic",
+                  }}
+                  color={"red"}
+                >
+                  {formik.errors.address &&
+                    formik.touched.address &&
+                    formik.errors.address}
+                </Typography>
 
                 <Field
                   as={TextField}
@@ -180,7 +225,18 @@ function Empregistrationdashboard() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {/* Validation error messages */}
+                <Typography
+                  variant="p"
+                  sx={{
+                    fontSize: "13px",
+                    fontStyle: "italic",
+                  }}
+                  color={"red"}
+                >
+                  {formik.errors.phoneno &&
+                    formik.touched.phoneno &&
+                    formik.errors.phoneno}
+                </Typography>
 
                 <Button
                   variant="contained"

@@ -33,28 +33,30 @@ function Registration() {
       
       password: Yup.string().min(6).required("Please enter your password"),
     }),
+
     onSubmit: async (values) => {
-    
       setErrorMsg("");
-
+    
       try {
-       
-        await createUserWithEmailAndPassword(auth, values.email, values.password);
-        console.log(auth  , 'auth auth ')
-       
-        await addDoc(usersCollection, { firstname: values.firstname,
+        const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
+        const user = userCredential.user;
+    
+        await addDoc(usersCollection, { 
+          firstname: values.firstname,
           lastname: values.lastname,
-          
-          email: values.email })
-
-          localStorage.setItem('user', JSON.stringify(user)); 
+          email: values.email 
+        });
+    
+        localStorage.setItem('user', JSON.stringify(user)); 
         toast.success("Registration successful!");
         navigate("/");
       } catch (error) {
         setErrorMsg(error.message);
-        console.error(error.message);
+        console.error("Error during registration:", error);
+        toast.error("Registration failed. Please try again.");
       }
     },
+    
   });
 
   return (

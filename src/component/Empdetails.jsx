@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
-import { database } from "../firebase";
+import { auth, database } from "../firebase";
 import { NavLink, useNavigate } from "react-router-dom";
 import Image from "../assets/homeimg.jpg";
 import Navbar from '../component/Navbar'
@@ -14,7 +14,9 @@ function Empdetails() {
     useEffect(() => {
       const getData = async () => {
         try {
-          const querySnapshot = await getDocs(collection(database, "posts"));
+          
+        // const userId = id;
+          const querySnapshot = await getDocs(collection(database, `demo/posts`));
           const data = querySnapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
@@ -31,19 +33,7 @@ function Empdetails() {
 
     console.log(value , 'value')
 
-    const handleDelete = async (id) => {
-        try {
-          const deletvalue = doc(database, "demo1", id);
-          await deleteDoc(deletvalue);
-          setValue((prevValue) => prevValue.filter((item) => item.id !== id));
-        } catch (error) {
-          console.error("Error deleting document: ", error);
-        }
-      };
-    
-      const handleEdit = (id) => {
-        navigate(`/edit/${id}`);
-      };
+   
       
       
 
@@ -122,7 +112,7 @@ function Empdetails() {
              EMPLOYEE
             </Typography>
             <Typography>
-              <Button
+              {/* <Button
                 sx={{
                   color: "red",
                   fontWeight: "bold",
@@ -130,7 +120,7 @@ function Empdetails() {
                 onClick={() => handleDelete(values.id)}
               >
                 Delete
-              </Button>
+              </Button> */}
             </Typography>
           </Box>
           <Box sx={{ fontSize: "23px", marginTop: "10px" }}>
@@ -143,7 +133,7 @@ function Empdetails() {
           <Box sx={{ fontSize: "23px" }}> phoneno : {values.phoneno}</Box>
           <Box sx={{ fontSize: "23px" }}> email : {values.email}</Box>
 
-          <Button
+          {/* <Button
             sx={{
               fontStyle: "italic",
               fontSize: "16px",
@@ -152,7 +142,7 @@ function Empdetails() {
             onClick={() => handleEdit(values.id)}
           >
             EDIT details
-          </Button>
+          </Button> */}
         </Stack>
       </Stack>
     ))}
