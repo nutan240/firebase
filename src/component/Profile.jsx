@@ -1,49 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { database } from "../firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import { Box, Stack, Typography } from "@mui/material";
 import Image from "../assets/profileimg.jpg";
 import { NavLink } from "react-router-dom";
 function Profile() {
-  const [userProfileInfo, setUserProfileInfo] = useState("");
-
-  console.log(userProfileInfo, "userProfileInfo");
+  const [userProfileInfo, setUserProfileInfo] = useState(null);
   useEffect(() => {
-    const getUserInfo = async () => {
-      try {
-        const userInfo = JSON.parse(localStorage.getItem("user"));
-
-        const q = query(
-          collection(database, "demo"),
-          where("email", "==", userInfo.email)
-        );
-        const querySnapshot = await getDocs(q);
-        const userData = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setUserProfileInfo(userData[0]);
-      } catch (error) {
-        console.error("Error getting user information: ", error);
-      }
-    };
-
-    getUserInfo();
+    // Retrieve user details from local storage after login
+    const userData = JSON.parse(localStorage.getItem("user"));
+    console.log(userData ,'userDatauserData')
+    if (userData) {
+      setUserProfileInfo(userData);
+    }
   }, []);
 
-  const userInfo = JSON.parse(localStorage.getItem("user"));
-  console.log(userInfo, "userInfouserInfo");
+  console.log(userProfileInfo , 'userProfileInfo')
   return (
     <>
       <Stack
         sx={{
-          backgroundImage: ` url( ${Image} )`,
-          backgroundSize: "100% 100%",
-          objectFit: "cover",
-          position: "center",
+          backgroundImage: `url(${Image})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
           overflow: "auto",
           height: "100vh",
-
           padding: 2,
         }}
       >
@@ -53,23 +32,21 @@ function Profile() {
               fontSize: "20px",
               fontWeight: "bold",
               fontStyle: "italic",
-
               width: "100px",
             }}
           >
-            go back{" "}
+            Go back
           </Typography>
         </NavLink>
-
         <Stack
           sx={{
             borderRadius: 4,
             padding: 3,
-            boxShadow: "10",
-            background: "#ebebeb",
+            boxShadow: 10,
+            background: "#EBEBEB",
             width: "40%",
             margin: "auto",
-            display: "flex ",
+            display: "flex",
             justifyContent: "center",
             height: "200px",
           }}
@@ -77,14 +54,13 @@ function Profile() {
           {userProfileInfo && (
             <Stack
               sx={{
-                textAlign: "center ",
+                textAlign: "center",
                 fontSize: "20px",
                 fontStyle: "italic",
               }}
             >
-              <Box>ID: {userProfileInfo.id}</Box>
-              <Box>First Name: {userProfileInfo.firstname}</Box>
-              <Box>Last Name: {userProfileInfo.lastname}</Box>
+              <Box>ID: {userProfileInfo.uid}</Box>
+              
               <Box>Email: {userProfileInfo.email}</Box>
             </Stack>
           )}
@@ -93,5 +69,4 @@ function Profile() {
     </>
   );
 }
-
 export default Profile;

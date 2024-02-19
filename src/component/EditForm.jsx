@@ -12,12 +12,12 @@ import Image from "../assets/editimg.jpg";
 
 function EditForm() {
   const [userData, setUserData] = useState(null);
-  const { id } = useParams();
+  const { uid } = useParams();
 const navigate = useNavigate()
   useEffect(() => {
     const getUserData = async () => {
       try {
-        const docRef = doc(database, "demo1", id);
+        const docRef = doc(database, "posts", uid);
         const docSnap = await getDoc(docRef);
 
         console.log(docSnap , 'docSnapdocSnapdocSnap')
@@ -33,7 +33,7 @@ const navigate = useNavigate()
     };
 
     getUserData();
-  }, [id]);
+  }, [uid]);
 
   const handleSubmit = async (values) => {
    
@@ -43,7 +43,7 @@ const navigate = useNavigate()
     }
   
     try {
-      const docRef = doc(database, "demo1", id);
+      const docRef = doc(database, "posts", uid);
       await updateDoc(docRef, {
         firstname: values.firstname,
         lastname: values.lastname,

@@ -14,7 +14,7 @@ function Empdetails() {
     useEffect(() => {
       const getData = async () => {
         try {
-          const querySnapshot = await getDocs(collection(database, "demo1"));
+          const querySnapshot = await getDocs(collection(database, "posts"));
           const data = querySnapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
