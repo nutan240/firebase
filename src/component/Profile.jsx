@@ -44,7 +44,9 @@ function Profile() {
             padding: 3,
             boxShadow: 10,
             background: "#EBEBEB",
-            width: "40%",
+ 
+            minWidth:'200px' ,
+                    
             margin: "auto",
             display: "flex",
             justifyContent: "center",
@@ -57,9 +59,11 @@ function Profile() {
                 textAlign: "center",
                 fontSize: "20px",
                 fontStyle: "italic",
+
               }}
             >
-              <Box>ID: {userProfileInfo.uid}</Box>
+              <Box
+              >ID: {userProfileInfo.uid}</Box>
               
               <Box>Email: {userProfileInfo.email}</Box>
             </Stack>

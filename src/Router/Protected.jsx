@@ -1,20 +1,24 @@
 import React, { useEffect } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
+import { auth } from "../firebase";
 
 function Protected(props) {
   const { Component } = props;
+  const navigate = useNavigate();
   useEffect(() => {
     const checkAuthentication = () => {
-      const isAuthenticated = false;
-      if (!isAuthenticated) {
+      const currentUser = auth.currentUser; 
+
+      if (!currentUser) {
+        
         navigate("/home");
       }
     };
 
     checkAuthentication();
-  }, []);
+  }, [navigate]);
 
-  const navigate = useNavigate();
+
   return <>{Component ? <Component /> : <Navigate to="/" />}</>;
 }
 
