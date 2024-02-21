@@ -7,17 +7,15 @@ function Protected(props) {
   const navigate = useNavigate();
   useEffect(() => {
     const checkAuthentication = () => {
-      const currentUser = auth.currentUser; 
+      const currentUser = auth.currentUser;
 
       if (!currentUser) {
-        
         navigate("/home");
       }
     };
 
     checkAuthentication();
   }, [navigate]);
-
 
   return <>{Component ? <Component /> : <Navigate to="/" />}</>;
 }

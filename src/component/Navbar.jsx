@@ -72,12 +72,13 @@ function ResponsiveNavBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static"  sx={{width:'100vw'}}>
       <Container
         maxWidth="xl"
         sx={{
           background:
             "linear-gradient(90.9deg, #999 0.3%, rgb(37, 84, 112) 87.8%)",
+            width :'100vw'
         }}
       >
         <Toolbar disableGutters>
@@ -87,7 +88,7 @@ function ResponsiveNavBar() {
             component="a"
             href="#app-bar-with-responsive-menu"
             sx={{
-              mr: 2,
+              // mr: 2,
               display: { xs: "none", md: "flex" },
               fontFamily: "monospace",
               fontWeight: 700,

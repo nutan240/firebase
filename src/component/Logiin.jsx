@@ -7,8 +7,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import Image from "../assets/gifimg.gif";
+
 import Image1 from "../assets/loginimg4.jpg";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+
 
 function Logiin() {
   const [errorMsg, setErrorMsg] = useState("");
@@ -40,7 +44,7 @@ function Logiin() {
             firstname: values.firstname,
           };
           localStorage.setItem("user", JSON.stringify(user));
-          // toast.success("Login successful!");
+         
           navigate("/home");
         })
         .catch((err) => {
@@ -186,14 +190,32 @@ function Logiin() {
                 </Typography>
 
                 <TextField
-                  fullWidth
-                  label="Password"
-                  type="password"
-                  name="password"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
+  fullWidth
+  label="Password"
+  type={formik.values.showPassword ? "text" : "password"}
+  name="password"
+  value={formik.values.password}
+  onChange={formik.handleChange}
+  onBlur={formik.handleBlur}
+  InputProps={{
+    endAdornment: (
+      <InputAdornment position="end">
+        <IconButton
+          onClick={() =>
+            formik.setValues({
+              ...formik.values,
+              showPassword: !formik.values.showPassword,
+            })
+          }
+          edge="end"
+        >
+          {formik.values.showPassword ? <VisibilityOff /> : <Visibility />}
+        </IconButton>
+      </InputAdornment>
+    ),
+  }}
+/>
+
                 <Typography
                   variant="p"
                   sx={{

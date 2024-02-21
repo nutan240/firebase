@@ -43,12 +43,13 @@ function Empregistrationdashboard() {
       phoneno: "",
     },
     validationSchema: Yup.object({
-      firstname: Yup.string().required("Please enter your firstname"),
-      lastname: Yup.string().required("Please enter your lastname"),
-      address: Yup.string().required("Please enter your address"),
+      firstname: Yup.string().min(2).max(15).required("Please enter your firstname"),
+      lastname: Yup.string().min(2).max(15).required("Please enter your lastname"),
+      address: Yup.string().min(2).max(20).required("Please enter your address"),
       email: Yup.string().email().required("Please enter your email"),
-      phoneno: Yup.number()  .min(10, "Phone number must be at least 10 digits")
-      .required("Please enter your phoneno"),
+      phoneno: Yup.string()
+      .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
+      .required("Please enter your phone number"),
     }),
     onSubmit: async (values) => {
       setErrorMsg("");

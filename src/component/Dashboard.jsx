@@ -5,7 +5,10 @@ import { Stack } from '@mui/material'
 function Dashboard() {
   return (
    <>
-   <Stack>
+   <Stack sx={{
+    height :'100vh' ,
+    width :'100vw'
+   }}>
    <Registration />
    </Stack>
     
