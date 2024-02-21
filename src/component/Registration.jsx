@@ -12,6 +12,8 @@ import Image1 from "../assets/loginimg.jpg";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import Buttoncomponent from "./Buttoncomponent";
+import Inputcomp from "./Inputcomp";
 
 function Registration() {
   const [errorMsg, setErrorMsg] = useState("");
@@ -51,9 +53,10 @@ function Registration() {
           email: values.email,
         });
 
-        localStorage.setItem("user", JSON.stringify(user));
         toast.success("Registration successful!");
         navigate("/");
+
+        localStorage.setItem("user", JSON.stringify(user));
       } catch (error) {
         setErrorMsg(error.message);
         console.error("Error during registration:", error);
@@ -65,25 +68,28 @@ function Registration() {
   return (
     <>
       <Stack
-        sx={{
-          height: "100vh",
-          overflow: "auto",
-        }}
+        sx={
+          {
+            // height: "100vh",
+            // overflow: "auto",
+          }
+        }
       >
         <Grid
           sx={{
             display: "flex",
             width: "100%",
             overflow: "auto",
-            height: { lg: "100vh", sm: "100vh", sx: "100vh" },
+            height: { lg: "100vh", sm: "auto", sx: "auto" },
+            // height :'100vh'
           }}
         >
           <Grid
             sx={{
               background: "#5e879d",
               width: { lg: "50%", sm: "100%", xs: "100%" },
-              height: "100vh",
-              overflow: "auto",
+              // height: "100vh",
+              // overflow: "auto",
             }}
           >
             <Stack
@@ -99,6 +105,7 @@ function Registration() {
                 background: "white",
                 borderTopLeftRadius: 6,
                 borderBottomLeftRadius: 8,
+                height: "550px",
               }}
               className="form_container"
             >
@@ -125,15 +132,13 @@ function Registration() {
                     direction={"column"}
                     spacing={1}
                   >
-                    <Field
-                      as={TextField}
-                      fullWidth
-                      label="Firstname"
-                      type="text"
-                      name="firstname"
-                      value={formik.values.firstname}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
+                    <Inputcomp
+                      label={"Firstname"}
+                      type={"text"}
+                      inputname={"firstname"}
+                      inputvalue={formik.values.firstname}
+                      handelchange={formik.handleChange}
+                      handleBlur={formik.handleBlur}
                     />
                     <Typography
                       variant="p"
@@ -147,7 +152,7 @@ function Registration() {
                         formik.touched.firstname &&
                         formik.errors.firstname}
                     </Typography>
-                    <Field
+                    {/* <Field
                       as={TextField}
                       fullWidth
                       label="Lastname"
@@ -156,6 +161,14 @@ function Registration() {
                       value={formik.values.lastname}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
+                    /> */}
+                    <Inputcomp
+                      label={"Lastname"}
+                      type={"text"}
+                      inputname={"lastname"}
+                      inputvalue={formik.values.lastname}
+                      handelchange={formik.handleChange}
+                      handleBlur={formik.handleBlur}
                     />
                     <Typography
                       variant="p"
@@ -169,7 +182,7 @@ function Registration() {
                         formik.touched.lastname &&
                         formik.errors.lastname}
                     </Typography>
-                    <Field
+                    {/* <Field
                       as={TextField}
                       fullWidth
                       label="Email"
@@ -178,6 +191,15 @@ function Registration() {
                       value={formik.values.email}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
+                    /> */}
+
+                    <Inputcomp
+                      label={"Email"}
+                      type={"email"}
+                      inputname={"email"}
+                      inputvalue={formik.values.email}
+                      handelchange={formik.handleChange}
+                      handleBlur={formik.handleBlur}
                     />
                     <Typography
                       variant="p"
@@ -192,15 +214,13 @@ function Registration() {
                         formik.errors.email}
                     </Typography>
 
-                    <Field
-                      as={TextField}
-                      fullWidth
-                      label="Password"
+                    <Inputcomp
+                      label={"Password"}
                       type={formik.values.showPassword ? "text" : "password"}
-                      name="password"
-                      value={formik.values.password}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
+                      inputname={"password"}
+                      inputvalue={formik.values.password}
+                      handelchange={formik.handleChange}
+                      handleBlur={formik.handleBlur}
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
@@ -236,15 +256,8 @@ function Registration() {
                         formik.touched.password &&
                         formik.errors.password}
                     </Typography>
-                    <Button
-                      variant="contained"
-                      sx={{
-                        background: " rgb(37, 84, 112)",
-                      }}
-                      type="submit"
-                    >
-                      Sign Up
-                    </Button>
+
+                    <Buttoncomponent buttontype={"submit"} title={"sign up "} />
                   </Stack>
                 </Form>
               </Formik>
@@ -265,6 +278,8 @@ function Registration() {
               background: "#303f5ea3",
               width: "50%",
               display: { lg: "block", sm: "none", xs: "none" },
+              // height :'100vh'
+              // height:'550px'
             }}
           >
             <Stack
@@ -273,7 +288,8 @@ function Registration() {
                 objectFit: "cover",
                 position: "center",
                 overflow: "auto",
-                height: "493.3px",
+                height: "550px",
+
                 width: { lg: "55%", sm: "60%", xs: "auto" },
                 marginTop: "100px",
                 borderTopRightRadius: 9,

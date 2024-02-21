@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "../assets/editimg.jpg";
+import Buttoncomponent from "./Buttoncomponent";
 
 function EditForm() {
   const [userData, setUserData] = useState(null);
@@ -34,6 +35,10 @@ function EditForm() {
 
     getUserData();
   }, [id]);
+
+  const handelclick = () => {
+    navigate("/home");
+  };
 
   const handleSubmit = async (values) => {
     if (
@@ -165,28 +170,11 @@ function EditForm() {
                     name="phoneno"
                   />
                 </Box>
-                <Button
-                  sx={{
-                    background:
-                      "linear-gradient(90.9deg, rgb(3, 195, 195) 0.3%, rgb(37, 84, 112) 87.8%)",
-                  }}
-                  variant="contained"
-                  type="submit"
-                >
-                  Save Changes
-                </Button>
-                <NavLink to={"/home"}>
-                  <Button
-                    sx={{
-                      background:
-                        "linear-gradient(90.9deg, rgb(3, 195, 195) 0.3%, rgb(37, 84, 112) 87.8%)",
-                      marginLeft: "20px",
-                    }}
-                    variant="contained"
-                  >
-                    cancel
-                  </Button>
-                </NavLink>
+                <Buttoncomponent
+                  buttontype={"submit"}
+                  title={"  Save Changes "}
+                />
+                <Buttoncomponent handelclick={handelclick} title={"Cancel "} />
               </Form>
             </Formik>
           )}

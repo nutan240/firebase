@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import Image from "../assets/loginimg3.jpg";
+import Buttoncomponent from "./Buttoncomponent";
 
 function Empregistrationdashboard() {
   const [errorMsg, setErrorMsg] = useState("");
@@ -18,22 +19,22 @@ function Empregistrationdashboard() {
     const fetchUserPostsCollection = async () => {
       try {
         const currentUser = auth.currentUser;
-  
+
         if (currentUser) {
           const userId = currentUser.uid;
           const userPostsCol = collection(database, `demo/${userId}/posts`);
           setUserPostsCollection(userPostsCol);
         } else {
-          console.error('No current user found.');
+          console.error("No current user found.");
         }
       } catch (error) {
-        console.error('Error fetching user posts collection:', error);
+        console.error("Error fetching user posts collection:", error);
       }
     };
-  
+
     fetchUserPostsCollection();
   }, []);
-  
+
   const formik = useFormik({
     initialValues: {
       firstname: "",
@@ -43,13 +44,22 @@ function Empregistrationdashboard() {
       phoneno: "",
     },
     validationSchema: Yup.object({
-      firstname: Yup.string().min(2).max(15).required("Please enter your firstname"),
-      lastname: Yup.string().min(2).max(15).required("Please enter your lastname"),
-      address: Yup.string().min(2).max(20).required("Please enter your address"),
+      firstname: Yup.string()
+        .min(2)
+        .max(15)
+        .required("Please enter your firstname"),
+      lastname: Yup.string()
+        .min(2)
+        .max(15)
+        .required("Please enter your lastname"),
+      address: Yup.string()
+        .min(2)
+        .max(20)
+        .required("Please enter your address"),
       email: Yup.string().email().required("Please enter your email"),
       phoneno: Yup.string()
-      .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
-      .required("Please enter your phone number"),
+        .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
+        .required("Please enter your phone number"),
     }),
     onSubmit: async (values) => {
       setErrorMsg("");
@@ -67,7 +77,7 @@ function Empregistrationdashboard() {
           toast.success("Registration successful!");
           navigate("/home");
         } else {
-          console.error('User posts collection not initialized');
+          console.error("User posts collection not initialized");
         }
       } catch (error) {
         setErrorMsg(error.message);
@@ -75,6 +85,9 @@ function Empregistrationdashboard() {
       }
     },
   });
+  const handelclick = () => {
+    navigate("/home");
+  };
 
   return (
     <>
@@ -180,7 +193,7 @@ function Empregistrationdashboard() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-             <Typography
+                <Typography
                   variant="p"
                   sx={{
                     fontSize: "13px",
@@ -203,7 +216,7 @@ function Empregistrationdashboard() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-              <Typography
+                <Typography
                   variant="p"
                   sx={{
                     fontSize: "13px",
@@ -239,28 +252,12 @@ function Empregistrationdashboard() {
                     formik.errors.phoneno}
                 </Typography>
 
-                <Button
-                  variant="contained"
-                  sx={{
-                    background:
-                      "linear-gradient(90.9deg, rgb(3, 195, 195) 0.3%, rgb(37, 84, 112) 87.8%)",
-                  }}
-                  type="submit"
-                >
-                  Add Employee
-                </Button>
-                <NavLink to={"/home"}>
-                  <Button
-                    sx={{
-                      background:
-                        "linear-gradient(90.9deg, rgb(3, 195, 195) 0.3%, rgb(37, 84, 112) 87.8%)",
-                      width: "100%",
-                    }}
-                    variant="contained"
-                  >
-                    Cancel
-                  </Button>
-                </NavLink>
+                <Buttoncomponent
+                  buttontype={"submit"}
+                  title={"Add Employee "}
+                />
+
+                <Buttoncomponent handelclick={handelclick} title={"Cancel "} />
               </Stack>
             </Form>
           </Formik>

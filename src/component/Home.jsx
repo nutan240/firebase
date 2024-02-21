@@ -122,6 +122,9 @@ function Home() {
               <Box
                 sx={{ overflowX: "auto", width: { lg: "100%", sm: "100%" } }}
               >
+
+              {  value.length >0 &&
+              
                 <table>
                   <tr>
                     <th>
@@ -370,15 +373,17 @@ function Home() {
                     ))}
                   </tbody>
                 </table>
+               }
+               
 
-                {value.map((values) => (
+                {/* {value.map((values) => (
                   <Stack>
                     <Box sx={{ display: "flex" }}>
                       <Typography>FIRSTNAME :</Typography>
                       <Typography>{values.phoneno}</Typography>
                     </Box>
                   </Stack>
-                ))}
+                ))} */}
               </Box>
             </Stack>
           </Box>

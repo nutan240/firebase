@@ -12,6 +12,7 @@ import Image1 from "../assets/loginimg4.jpg";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import Buttoncomponent from "./Buttoncomponent";
 
 
 function Logiin() {
@@ -89,7 +90,9 @@ function Logiin() {
               margin: "auto",
               boxShadow: 3,
               padding: 5,
-              height: "80%",
+             
+              height: "400px",
+
               background: "rgb(255 255 255)",
               backgroundImage: ` url( ${Image1} )`,
               color: "white",
@@ -112,7 +115,7 @@ function Logiin() {
                 justifyContent: "center",
                 height: "400px",
                 marginX: "auto",
-                marginTop: "160px",
+                
                 fontSize: "26px",
                 display: { lg: "block", sm: "none" },
               }}
@@ -121,6 +124,7 @@ function Logiin() {
                 sx={{
                   fontSize: { lg: "35px", sm: "30px", sx: "0px" },
                   width: { lg: "70%", sm: "60%" },
+                  
                 }}
               >
                 JOIN OUR{" "}
@@ -145,6 +149,7 @@ function Logiin() {
               padding: { lg: 5, sm: 6, xs: 4 },
               height: { lg: "80%", sm: "100%", xs: "100vh" },
               background: "rgb(255 255 255)",
+              height: "400px",
 
               borderTopRightRadius: 9,
               borderBottomRightRadius: 9,
@@ -228,16 +233,11 @@ function Logiin() {
                     formik.touched.password &&
                     formik.errors.password}
                 </Typography>
-                <Button
-                  variant="contained"
-                  sx={{
-                    background:
-                      "linear-gradient(90.9deg, rgb(3, 195, 195) 0.3%, rgb(37, 84, 112) 87.8%)",
-                  }}
-                  type="submit"
-                >
-                  Login
-                </Button>
+               
+                <Buttoncomponent
+                buttontype ={'submit'}
+                  title={'login'}
+                />
               </Stack>
             </form>
 
