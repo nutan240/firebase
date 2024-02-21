@@ -6,8 +6,7 @@ function Dashboard() {
   return (
    <>
    <Stack sx={{
-    height :'100vh' ,
-    width :'100vw'
+    
    }}>
    <Registration />
    </Stack>

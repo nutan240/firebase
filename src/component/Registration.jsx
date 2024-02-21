@@ -14,7 +14,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Buttoncomponent from "./Buttoncomponent";
 import Inputcomp from "./Inputcomp";
-
+import "../css/Registration.css";
 function Registration() {
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
@@ -67,52 +67,24 @@ function Registration() {
 
   return (
     <>
-      <Stack
-        sx={
-          {
-            // height: "100vh",
-            // overflow: "auto",
-          }
-        }
-      >
-        <Grid
-          sx={{
-            display: "flex",
-            width: "100%",
-            overflow: "auto",
-            height: { lg: "100vh", sm: "auto", sx: "auto" },
-            // height :'100vh'
-          }}
-        >
+      <Stack>
+        <Grid className="grid_container">
           <Grid
+            className="grid_container1"
             sx={{
-              background: "#5e879d",
               width: { lg: "50%", sm: "100%", xs: "100%" },
-              // height: "100vh",
-              // overflow: "auto",
             }}
           >
             <Stack
               direction={"column"}
               sx={{
-                display: "flex ",
                 float: { lg: "right ", sm: "none" },
                 width: { lg: "50%", sm: "60%", xs: "auto" },
-                marginTop: "100px",
                 marginX: { lg: "0px ", sm: " auto" },
-                boxShadow: 3,
-                padding: 5,
-                background: "white",
-                borderTopLeftRadius: 6,
-                borderBottomLeftRadius: 8,
-                height: "550px",
               }}
               className="form_container"
             >
-              <Typography
-                sx={{ fontWeight: "bold", paddingBottom: "15px" }}
-                variant="h5"
-              >
+              <Typography className="heading" variant="h5">
                 Sign Up
               </Typography>
 
@@ -137,7 +109,7 @@ function Registration() {
                       type={"text"}
                       inputname={"firstname"}
                       inputvalue={formik.values.firstname}
-                      handelchange={formik.handleChange}
+                      handleChange={formik.handleChange}
                       handleBlur={formik.handleBlur}
                     />
                     <Typography
@@ -152,22 +124,13 @@ function Registration() {
                         formik.touched.firstname &&
                         formik.errors.firstname}
                     </Typography>
-                    {/* <Field
-                      as={TextField}
-                      fullWidth
-                      label="Lastname"
-                      type="text"
-                      name="lastname"
-                      value={formik.values.lastname}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                    /> */}
+
                     <Inputcomp
                       label={"Lastname"}
                       type={"text"}
                       inputname={"lastname"}
                       inputvalue={formik.values.lastname}
-                      handelchange={formik.handleChange}
+                      handleChange={formik.handleChange}
                       handleBlur={formik.handleBlur}
                     />
                     <Typography
@@ -182,23 +145,13 @@ function Registration() {
                         formik.touched.lastname &&
                         formik.errors.lastname}
                     </Typography>
-                    {/* <Field
-                      as={TextField}
-                      fullWidth
-                      label="Email"
-                      type="email"
-                      name="email"
-                      value={formik.values.email}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                    /> */}
 
                     <Inputcomp
                       label={"Email"}
                       type={"email"}
                       inputname={"email"}
                       inputvalue={formik.values.email}
-                      handelchange={formik.handleChange}
+                      handleChange={formik.handleChange}
                       handleBlur={formik.handleBlur}
                     />
                     <Typography
@@ -219,29 +172,29 @@ function Registration() {
                       type={formik.values.showPassword ? "text" : "password"}
                       inputname={"password"}
                       inputvalue={formik.values.password}
-                      handelchange={formik.handleChange}
+                      handleChange={formik.handleChange}
                       handleBlur={formik.handleBlur}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <IconButton
-                              onClick={() =>
-                                formik.setValues({
-                                  ...formik.values,
-                                  showPassword: !formik.values.showPassword,
-                                })
-                              }
-                              edge="end"
-                            >
-                              {formik.values.showPassword ? (
-                                <VisibilityOff />
-                              ) : (
-                                <Visibility />
-                              )}
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
+                      // InputProps={{
+                      //   endAdornment: (
+                      //     <InputAdornment position="end">
+                      //       <IconButton
+                      //         onClick={() =>
+                      //           formik.setValues({
+                      //             ...formik.values,
+                      //             showPassword: !formik.values.showPassword,
+                      //           })
+                      //         }
+                      //         edge="end"
+                      //       >
+                      //         {formik.values.showPassword ? (
+                      //           <VisibilityOff />
+                      //         ) : (
+                      //           <Visibility />
+                      //         )}
+                      //       </IconButton>
+                      //     </InputAdornment>
+                      //   ),
+                      // }}
                     />
 
                     <Typography
@@ -261,7 +214,6 @@ function Registration() {
                   </Stack>
                 </Form>
               </Formik>
-
               <Box sx={{ paddingTop: 3 }}>
                 <NavLink
                   style={{ color: "#1565c0", paddingTop: 3 }}
@@ -278,8 +230,6 @@ function Registration() {
               background: "#303f5ea3",
               width: "50%",
               display: { lg: "block", sm: "none", xs: "none" },
-              // height :'100vh'
-              // height:'550px'
             }}
           >
             <Stack
@@ -288,7 +238,7 @@ function Registration() {
                 objectFit: "cover",
                 position: "center",
                 overflow: "auto",
-                height: "550px",
+                height: "496px",
 
                 width: { lg: "55%", sm: "60%", xs: "auto" },
                 marginTop: "100px",

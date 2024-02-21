@@ -1,0 +1,23 @@
+.heading{
+    font-size: 25px;
+    font-weight: bold; 
+}
+.grid_container{
+    display: flex;
+    width: 100%;
+    overflow: auto;
+    height: 100vh;
+}
+.grid_container1{
+    background:#5e879d ;
+    overflow: auto;
+}
+.form_container{
+    display: flex;
+    margin-top: 100px;
+    box-shadow: 3px;
+    padding: 48px;
+    background: white;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}

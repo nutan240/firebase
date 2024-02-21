@@ -1,15 +1,21 @@
-import { TextField, IconButton, InputAdornment } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useState } from "react";
+import { TextField } from "@mui/material";
+import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 
 function Inputcomp({
   label,
   type,
   inputname,
   inputvalue,
-  handelchange,
+  handleChange,
   handleBlur,
-  showPassword,
 }) {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
   return (
     <TextField
       fullWidth
@@ -17,23 +23,18 @@ function Inputcomp({
       type={type === "password" ? (showPassword ? "text" : "password") : type}
       name={inputname}
       value={inputvalue}
-      onChange={handelchange}
+      onChange={handleChange}
       onBlur={handleBlur}
       InputProps={{
-        endAdornment: type === "password" && (
-          <InputAdornment position="end">
-            <IconButton onClick={handleTogglePasswordVisibility} edge="end">
-              {showPassword ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          </InputAdornment>
-        ),
+        endAdornment:
+          type === "password" ? (
+            <div style={{ cursor: "pointer" }} onClick={handleTogglePasswordVisibility}>
+              {showPassword ? <RiEyeFill /> : <RiEyeOffFill />}
+            </div>
+          ) : null,
       }}
     />
   );
-
-  function handleTogglePasswordVisibility() {
-    setShowPassword((prevShowPassword) => !prevShowPassword);
-  }
 }
 
 export default Inputcomp;

@@ -9,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "../assets/editimg.jpg";
 import Buttoncomponent from "./Buttoncomponent";
+import Inputcomp from "./Inputcomp";
 
 function EditForm() {
   const [userData, setUserData] = useState(null);
@@ -118,64 +119,81 @@ function EditForm() {
                 email: userData.email,
               }}
               validationSchema={Yup.object({
-                firstname: Yup.string().required("Please enter your username"),
-                lastname: Yup.string().required("Please enter your username"),
+                firstname: Yup.string()
+                  .max(15)
+                  .required("Please enter your username"),
+                lastname: Yup.string()
+                  .max(15)
+                  .required("Please enter your username"),
+
+                address: Yup.string()
+                  .min(2)
+                  .max(20)
+                  .required("Please enter your address"),
                 email: Yup.string().email().required("Please enter your email"),
+                phoneno: Yup.string()
+                  .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
+                  .required("Please enter your phone number"),
               })}
               onSubmit={handleSubmit}
             >
-              <Form>
-                <Box sx={{ margin: "20px 0" }}>
-                  <Field
-                    as={TextField}
-                    fullWidth
-                    label="firstname"
-                    type="text"
-                    name="firstname"
+              {({ handleChange }) => (
+                <Form>
+                  <Box sx={{ margin: "20px 0" }}>
+                    <Field
+                      as={TextField}
+                      fullWidth
+                      label="firstname"
+                      type="text"
+                      name="firstname"
+                    />
+                  </Box>
+                  <Box sx={{ margin: "20px 0" }}>
+                    <Field
+                      as={TextField}
+                      fullWidth
+                      label="lastname"
+                      type="text"
+                      name="lastname"
+                    />
+                  </Box>
+                  <Box sx={{ margin: "20px 0" }}>
+                    <Field
+                      as={TextField}
+                      fullWidth
+                      label="Email"
+                      type="email"
+                      name="email"
+                    />
+                  </Box>{" "}
+                  <Box sx={{ margin: "20px 0" }}>
+                    <Field
+                      as={TextField}
+                      fullWidth
+                      label="Addres"
+                      type="text"
+                      name="address"
+                    />
+                  </Box>{" "}
+                  <Box sx={{ margin: "20px 0" }}>
+                    <Field
+                      as={TextField}
+                      fullWidth
+                      label="phoneno"
+                      type="text"
+                      name="phoneno"
+                    />
+                  </Box>
+                  <Buttoncomponent
+                    buttontype={"submit"}
+                    title={"  Save Changes "}
                   />
-                </Box>
-                <Box sx={{ margin: "20px 0" }}>
-                  <Field
-                    as={TextField}
-                    fullWidth
-                    label="lastname"
-                    type="text"
-                    name="lastname"
+                  <Buttoncomponent
+                    handelclick={handelclick}
+                    title={"Cancel "}
                   />
-                </Box>
-                <Box sx={{ margin: "20px 0" }}>
-                  <Field
-                    as={TextField}
-                    fullWidth
-                    label="Email"
-                    type="email"
-                    name="email"
-                  />
-                </Box>{" "}
-                <Box sx={{ margin: "20px 0" }}>
-                  <Field
-                    as={TextField}
-                    fullWidth
-                    label="Addres"
-                    type="text"
-                    name="address"
-                  />
-                </Box>{" "}
-                <Box sx={{ margin: "20px 0" }}>
-                  <Field
-                    as={TextField}
-                    fullWidth
-                    label="phoneno"
-                    type="text"
-                    name="phoneno"
-                  />
-                </Box>
-                <Buttoncomponent
-                  buttontype={"submit"}
-                  title={"  Save Changes "}
-                />
-                <Buttoncomponent handelclick={handelclick} title={"Cancel "} />
-              </Form>
+                </Form>
+              )}
             </Formik>
           )}
           <ToastContainer />

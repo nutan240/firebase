@@ -13,11 +13,12 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Buttoncomponent from "./Buttoncomponent";
-
+import Inputcomp from "./Inputcomp";
 
 function Logiin() {
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -45,7 +46,7 @@ function Logiin() {
             firstname: values.firstname,
           };
           localStorage.setItem("user", JSON.stringify(user));
-         
+
           navigate("/home");
         })
         .catch((err) => {
@@ -90,7 +91,7 @@ function Logiin() {
               margin: "auto",
               boxShadow: 3,
               padding: 5,
-             
+
               height: "400px",
 
               background: "rgb(255 255 255)",
@@ -115,7 +116,7 @@ function Logiin() {
                 justifyContent: "center",
                 height: "400px",
                 marginX: "auto",
-                
+
                 fontSize: "26px",
                 display: { lg: "block", sm: "none" },
               }}
@@ -124,7 +125,6 @@ function Logiin() {
                 sx={{
                   fontSize: { lg: "35px", sm: "30px", sx: "0px" },
                   width: { lg: "70%", sm: "60%" },
-                  
                 }}
               >
                 JOIN OUR{" "}
@@ -172,14 +172,13 @@ function Logiin() {
                 direction={"column"}
                 spacing={1}
               >
-                <TextField
-                  fullWidth
-                  label="Email"
-                  type="email"
-                  name="email"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                <Inputcomp
+                  label={"Email"}
+                  type={"email"}
+                  inputname={"email"}
+                  inputvalue={formik.values.email}
+                  handleChange={formik.handleChange}
+                  handleBlur={formik.handleBlur}
                 />
                 <Typography
                   variant="p"
@@ -194,32 +193,14 @@ function Logiin() {
                     formik.errors.email}
                 </Typography>
 
-                <TextField
-  fullWidth
-  label="Password"
-  type={formik.values.showPassword ? "text" : "password"}
-  name="password"
-  value={formik.values.password}
-  onChange={formik.handleChange}
-  onBlur={formik.handleBlur}
-  InputProps={{
-    endAdornment: (
-      <InputAdornment position="end">
-        <IconButton
-          onClick={() =>
-            formik.setValues({
-              ...formik.values,
-              showPassword: !formik.values.showPassword,
-            })
-          }
-          edge="end"
-        >
-          {formik.values.showPassword ? <VisibilityOff /> : <Visibility />}
-        </IconButton>
-      </InputAdornment>
-    ),
-  }}
-/>
+                <Inputcomp
+                  label={"Password"}
+                  type={ "password"}
+                  inputname={"password"}
+                  inputvalue={formik.values.password}
+                  handleChange={formik.handleChange}
+                  handleBlur={formik.handleBlur}
+                />
 
                 <Typography
                   variant="p"
@@ -233,11 +214,8 @@ function Logiin() {
                     formik.touched.password &&
                     formik.errors.password}
                 </Typography>
-               
-                <Buttoncomponent
-                buttontype ={'submit'}
-                  title={'login'}
-                />
+
+                <Buttoncomponent buttontype={"submit"} title={"login"} />
               </Stack>
             </form>
 

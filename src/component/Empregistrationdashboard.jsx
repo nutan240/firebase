@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, useFormik } from "formik";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import { NavLink, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { auth, database } from "../firebase";
 import { ToastContainer, toast } from "react-toastify";
@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import Image from "../assets/loginimg3.jpg";
 import Buttoncomponent from "./Buttoncomponent";
+import Inputcomp from "./Inputcomp";
 
 function Empregistrationdashboard() {
   const [errorMsg, setErrorMsg] = useState("");
@@ -137,15 +138,13 @@ function Empregistrationdashboard() {
                 direction={"column"}
                 spacing={1}
               >
-                <Field
-                  as={TextField}
-                  fullWidth
-                  label="Firstname"
-                  type="text"
-                  name="firstname"
-                  value={formik.values.firstname}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                <Inputcomp
+                  label={"Firstname"}
+                  type={"text"}
+                  inputname={"firstname"}
+                  inputvalue={formik.values.firstname}
+                  handleChange={formik.handleChange}
+                  handleBlur={formik.handleBlur}
                 />
                 <Typography
                   variant="p"
@@ -160,15 +159,13 @@ function Empregistrationdashboard() {
                     formik.errors.firstname}
                 </Typography>
 
-                <Field
-                  as={TextField}
-                  fullWidth
-                  label="Lastname"
-                  type="text"
-                  name="lastname"
-                  value={formik.values.lastname}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                <Inputcomp
+                  label={"Lastname"}
+                  type={"text"}
+                  inputname={"lastname"}
+                  inputvalue={formik.values.lastname}
+                  handleChange={formik.handleChange}
+                  handleBlur={formik.handleBlur}
                 />
                 <Typography
                   variant="p"
@@ -182,16 +179,13 @@ function Empregistrationdashboard() {
                     formik.touched.lastname &&
                     formik.errors.lastname}
                 </Typography>
-
-                <Field
-                  as={TextField}
-                  fullWidth
-                  label="Email"
-                  type="email"
-                  name="email"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                <Inputcomp
+                  label={"Email"}
+                  type={"email"}
+                  inputname={"email"}
+                  inputvalue={formik.values.email}
+                  handleChange={formik.handleChange}
+                  handleBlur={formik.handleBlur}
                 />
                 <Typography
                   variant="p"
@@ -205,16 +199,13 @@ function Empregistrationdashboard() {
                     formik.touched.email &&
                     formik.errors.email}
                 </Typography>
-
-                <Field
-                  as={TextField}
-                  fullWidth
-                  label="Address"
-                  type="text"
-                  name="address"
-                  value={formik.values.address}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                <Inputcomp
+                  label={"Address"}
+                  type={"text"}
+                  inputname={"address"}
+                  inputvalue={formik.values.address}
+                  handleChange={formik.handleChange}
+                  handleBlur={formik.handleBlur}
                 />
                 <Typography
                   variant="p"
@@ -228,16 +219,13 @@ function Empregistrationdashboard() {
                     formik.touched.address &&
                     formik.errors.address}
                 </Typography>
-
-                <Field
-                  as={TextField}
-                  fullWidth
-                  label="Phone No."
-                  type="text"
-                  name="phoneno"
-                  value={formik.values.phoneno}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                <Inputcomp
+                  label={"Phone No."}
+                  type={"text"}
+                  inputname={"phoneno"}
+                  inputvalue={formik.values.phoneno}
+                  handleChange={formik.handleChange}
+                  handleBlur={formik.handleBlur}
                 />
                 <Typography
                   variant="p"
@@ -251,12 +239,10 @@ function Empregistrationdashboard() {
                     formik.touched.phoneno &&
                     formik.errors.phoneno}
                 </Typography>
-
                 <Buttoncomponent
                   buttontype={"submit"}
                   title={"Add Employee "}
                 />
-
                 <Buttoncomponent handelclick={handelclick} title={"Cancel "} />
               </Stack>
             </Form>
