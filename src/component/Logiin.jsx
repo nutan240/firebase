@@ -7,18 +7,85 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import "../css/Login.css";
 import Image1 from "../assets/loginimg4.jpg";
-import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Buttoncomponent from "./Buttoncomponent";
 import Inputcomp from "./Inputcomp";
+import { makeStyles } from "mui-styles-hook";
+
+const useStyles = makeStyles(() => ({
+  container: {
+    height: "100vh",
+    background: " #006369a3",
+    overflow: "hidden",
+    width: "100%",
+  },
+  container2: {
+    width: { lg: "70%", sm: "100%", xs: "100%" },
+    margin: { lg: "auto", sm: "0px" },
+    height: { lg: "80vh", sm: "90%" },
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  login_stack_container2: {
+    width: "50% ",
+    margin: "auto",
+    boxShadow: 3,
+    padding: 5,
+    height: "400px",
+    backgroundImage: ` url( ${Image1} )`,
+    color: "white",
+    borderTopLeftRadius: 6,
+    borderBottomLeftRadius: 8,
+    display: { lg: "block", sm: "none" },
+    display: "flex",
+    alignItems: "center",
+    justifyItems: "center",
+    display: { lg: "block", sm: "none", xs: "none" },
+  },
+  box_container: {
+    width: { lg: "70%", sm: "70%" },
+    fontStyle: "italic",
+    fontWeight: "bold",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "400px",
+    marginX: "auto",
+    fontSize: "26px",
+    display: { lg: "block", sm: "none" },
+  },
+  typography: {
+    fontSize: { lg: "35px", sm: "30px", sx: "0px" },
+    width: { lg: "70%", sm: "60%" },
+  },
+  stack_container: {
+    width: { lg: "50%", sm: "100%", xs: "100%" },
+    margin: { lg: "auto", sm: "0px" },
+    boxShadow: 3,
+    padding: { lg: 5, sm: 6, xs: 4 },
+    height: { lg: "80%", sm: "100%", xs: "100vh" },
+    background: "rgb(255 255 255)",
+    height: "400px",
+    borderTopRightRadius: 9,
+    borderBottomRightRadius: 9,
+  },
+  typography_para: {
+    fontSize: "13px",
+    fontStyle: "italic",
+  },
+  typography_head: {
+    fontWeight: "bold",
+    paddingBottom: "15px",
+    color: "rgb(37, 84, 112)",
+  },
+}));
 
 function Logiin() {
+  const classes = useStyles();
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -57,113 +124,18 @@ function Logiin() {
   });
   return (
     <>
-      <Stack
-        direction={"row"}
-        sx={{
-          objectFit: "cover",
-          position: "center",
-          overflow: "auto",
-          height: { lg: "0%", sm: "100vh", xs: "100vh" },
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          display: "flex",
-          background: "#006369a3",
-          padding: { lg: 9, sm: 3, xs: 0 },
-        }}
-      >
-        <Stack
-          direction={"row"}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            overflow: "hidden",
-            width: { lg: "70%", sm: "100%", xs: "100%" },
-
-            margin: { lg: "auto", sm: "0px" },
-            height: { lg: "80vh", sm: "90%" },
-          }}
-        >
-          <Stack
-            sx={{
-              width: "50% ",
-              margin: "auto",
-              boxShadow: 3,
-              padding: 5,
-
-              height: "400px",
-
-              background: "rgb(255 255 255)",
-              backgroundImage: ` url( ${Image1} )`,
-              color: "white",
-              borderTopLeftRadius: 6,
-              borderBottomLeftRadius: 8,
-              display: { lg: "block", sm: "none" },
-              display: "flex",
-              alignItems: "center",
-              justifyItems: "center",
-              display: { lg: "block", sm: "none", xs: "none" },
-            }}
-          >
-            <Box
-              sx={{
-                width: { lg: "70%", sm: "70%" },
-                fontStyle: "italic",
-                fontWeight: "bold",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "400px",
-                marginX: "auto",
-
-                fontSize: "26px",
-                display: { lg: "block", sm: "none" },
-              }}
-            >
-              <Typography
-                sx={{
-                  fontSize: { lg: "35px", sm: "30px", sx: "0px" },
-                  width: { lg: "70%", sm: "60%" },
-                }}
-              >
-                JOIN OUR{" "}
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "26px",
-                }}
-              >
-                COMMUNITY{" "}
-              </Typography>
+      <Stack sx={classes.container} direction={"row"}>
+        <Stack direction={"row"} sx={classes.container2}>
+          <Stack sx={classes.login_stack_container2}>
+            <Box sx={classes.box_container}>
+              <Typography sx={classes.typography}>JOIN OUR </Typography>
+              <Typography sx={{ fontSize: "26px" }}>COMMUNITY </Typography>
               <Typography>keep Your Employee Data saperate</Typography>
             </Box>
           </Stack>
 
-          <Stack
-            sx={{
-              width: { lg: "50%", sm: "100%", xs: "100%" },
-
-              margin: { lg: "auto", sm: "0px" },
-              boxShadow: 3,
-              padding: { lg: 5, sm: 6, xs: 4 },
-              height: { lg: "80%", sm: "100%", xs: "100vh" },
-              background: "rgb(255 255 255)",
-              height: "400px",
-
-              borderTopRightRadius: 9,
-              borderBottomRightRadius: 9,
-            }}
-            className="form_container"
-          >
-            <Typography
-              sx={{
-                fontWeight: "bold",
-                paddingBottom: "15px",
-                color: "rgb(37, 84, 112)",
-              }}
-              variant="h5"
-            >
+          <Stack sx={classes.stack_container} className="form_container">
+            <Typography sx={classes.typography_head} variant="h5">
               Login ...
             </Typography>
             <form onSubmit={formik.handleSubmit}>
@@ -182,10 +154,7 @@ function Logiin() {
                 />
                 <Typography
                   variant="p"
-                  sx={{
-                    fontSize: "13px",
-                    fontStyle: "italic",
-                  }}
+                  sx={classes.typography_para}
                   color={"red"}
                 >
                   {formik.errors.email &&
@@ -195,7 +164,7 @@ function Logiin() {
 
                 <Inputcomp
                   label={"Password"}
-                  type={ "password"}
+                  type={"password"}
                   inputname={"password"}
                   inputvalue={formik.values.password}
                   handleChange={formik.handleChange}
@@ -204,10 +173,7 @@ function Logiin() {
 
                 <Typography
                   variant="p"
-                  sx={{
-                    fontSize: "13px",
-                    fontStyle: "italic",
-                  }}
+                  sx={classes.typography_para}
                   color={"red"}
                 >
                   {formik.errors.password &&

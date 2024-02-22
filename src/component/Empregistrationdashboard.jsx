@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Formik, Form, Field, useFormik } from "formik";
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import {  useNavigate } from "react-router-dom";
+import { Formik, Form, useFormik } from "formik";
+import { Stack, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { auth, database } from "../firebase";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,8 +10,40 @@ import * as Yup from "yup";
 import Image from "../assets/loginimg3.jpg";
 import Buttoncomponent from "./Buttoncomponent";
 import Inputcomp from "./Inputcomp";
+import { makeStyles } from "mui-styles-hook";
+
+const useStyles = makeStyles(() => ({
+  container: {
+    backgroundImage: `url(${Image})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    overflow: "auto",
+    height: "100vh",
+    width: "100%",
+    position: "relative",
+  },
+  container2: {
+    width: { lg: "30%", sm: "60%", xs: "auto" },
+    margin: "auto",
+    boxShadow: 3,
+    padding: 5,
+    height: "auto",
+    background: "white",
+    borderRadius: 4,
+  },
+  typography: {
+    fontWeight: "bold",
+    paddingBottom: "15px",
+  },
+  typographypara: {
+    fontSize: "13px",
+    fontStyle: "italic",
+  },
+}));
 
 function Empregistrationdashboard() {
+  const classes = useStyles();
+
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
   const [userPostsCollection, setUserPostsCollection] = useState(null);
@@ -92,33 +124,13 @@ function Empregistrationdashboard() {
 
   return (
     <>
-      <Stack
-        sx={{
-          backgroundImage: `url(${Image})`,
-          objectFit: "cover",
-          position: "center",
-          overflow: "auto",
-          height: "100vh",
-          width: "100%",
-        }}
-      >
+      <Stack sx={classes.container}>
         <Stack
           direction={"column"}
-          sx={{
-            width: { lg: "30%", sm: "60%", xs: "auto" },
-            margin: "auto",
-            boxShadow: 3,
-            padding: 5,
-            height: "auto",
-            background: "white",
-            borderRadius: 4,
-          }}
+          sx={classes.container2}
           className="form_container"
         >
-          <Typography
-            sx={{ fontWeight: "bold", paddingBottom: "15px" }}
-            variant="h5"
-          >
+          <Typography sx={classes.typography} variant="h5">
             Fill Details
           </Typography>
 
@@ -148,10 +160,7 @@ function Empregistrationdashboard() {
                 />
                 <Typography
                   variant="p"
-                  sx={{
-                    fontSize: "13px",
-                    fontStyle: "italic",
-                  }}
+                  sx={classes.typographypara}
                   color={"red"}
                 >
                   {formik.errors.firstname &&
@@ -169,10 +178,7 @@ function Empregistrationdashboard() {
                 />
                 <Typography
                   variant="p"
-                  sx={{
-                    fontSize: "13px",
-                    fontStyle: "italic",
-                  }}
+                  sx={classes.typographypara}
                   color={"red"}
                 >
                   {formik.errors.lastname &&
@@ -189,10 +195,7 @@ function Empregistrationdashboard() {
                 />
                 <Typography
                   variant="p"
-                  sx={{
-                    fontSize: "13px",
-                    fontStyle: "italic",
-                  }}
+                  sx={classes.typographypara}
                   color={"red"}
                 >
                   {formik.errors.email &&
@@ -209,10 +212,7 @@ function Empregistrationdashboard() {
                 />
                 <Typography
                   variant="p"
-                  sx={{
-                    fontSize: "13px",
-                    fontStyle: "italic",
-                  }}
+                  sx={classes.typographypara}
                   color={"red"}
                 >
                   {formik.errors.address &&
@@ -229,10 +229,7 @@ function Empregistrationdashboard() {
                 />
                 <Typography
                   variant="p"
-                  sx={{
-                    fontSize: "13px",
-                    fontStyle: "italic",
-                  }}
+                  sx={classes.typographypara}
                   color={"red"}
                 >
                   {formik.errors.phoneno &&

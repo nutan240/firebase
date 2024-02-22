@@ -28,7 +28,10 @@ function Inputcomp({
       InputProps={{
         endAdornment:
           type === "password" ? (
-            <div style={{ cursor: "pointer" }} onClick={handleTogglePasswordVisibility}>
+            <div
+              style={{ cursor: "pointer" }}
+              onClick={handleTogglePasswordVisibility}
+            >
               {showPassword ? <RiEyeFill /> : <RiEyeOffFill />}
             </div>
           ) : null,

@@ -1,15 +1,19 @@
 import { Button } from "@mui/material";
 import React from "react";
-
-function Buttoncomponent({ buttontype, title  ,handelclick}) {
+import { makeStyles } from "mui-styles-hook";
+const useStyles = makeStyles(() => ({
+  button: {
+    background:
+      "linear-gradient(90.9deg, rgb(3, 195, 195) 0.3%, rgb(37, 84, 112) 87.8%)",
+    marginLeft: "3px",
+  },
+}));
+function Buttoncomponent({ buttontype, title, handelclick }) {
+  const classes = useStyles();
   return (
     <Button
       variant="contained"
-      sx={{
-        background:
-          "linear-gradient(90.9deg, rgb(3, 195, 195) 0.3%, rgb(37, 84, 112) 87.8%)",
-          marginLeft :'3px'
-      }}
+      sx={classes.button}
       type={buttontype}
       onClick={handelclick}
     >

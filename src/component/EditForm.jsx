@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { Box, Stack, TextField, Typography } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, database } from "../firebase";
 import * as Yup from "yup";
@@ -9,9 +9,40 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "../assets/editimg.jpg";
 import Buttoncomponent from "./Buttoncomponent";
-import Inputcomp from "./Inputcomp";
+import { makeStyles } from "mui-styles-hook";
+
+const useStyles = makeStyles(() => ({
+  container: {
+    backgroundImage: ` url( ${Image} )`,
+    height: "100vh",
+    overflow: "auto",
+    width: "100%",
+  },
+  container2: {
+    width: "50%",
+    margin: "auto",
+    border: 1,
+    padding: 4,
+    borderColor: "gray",
+    borderRadius: 3,
+    boxShadow: 10,
+    background: "white",
+  },
+  typography: {
+    fontWeight: "bold",
+    fontStyle: "italic",
+    fontSize: "35px",
+    textAlign: "center",
+    textDecoration: "underline",
+  },
+  box: {
+    margin: "20px 0",
+  },
+}));
 
 function EditForm() {
+  const classes = useStyles();
+
   const [userData, setUserData] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -76,37 +107,9 @@ function EditForm() {
 
   return (
     <>
-      <Stack
-        sx={{
-          backgroundImage: ` url( ${Image} )`,
-          height: "100vh",
-          overflow: "auto",
-
-          width: "100%",
-        }}
-      >
-        <Stack
-          sx={{
-            width: "50%",
-            margin: "auto",
-            border: 1,
-            padding: 4,
-            borderColor: "gray",
-            borderRadius: 3,
-            boxShadow: 10,
-            background: "white",
-          }}
-        >
-          <Typography
-            sx={{
-              fontWeight: "bold",
-              fontStyle: "italic",
-              fontSize: "35px",
-              textAlign: "center",
-              textDecoration: "underline",
-            }}
-            variant="h5"
-          >
+      <Stack sx={classes.container}>
+        <Stack sx={classes.container2}>
+          <Typography sx={classes.typography} variant="h5">
             Edit User
           </Typography>
           {userData && (
@@ -139,7 +142,7 @@ function EditForm() {
             >
               {({ handleChange }) => (
                 <Form>
-                  <Box sx={{ margin: "20px 0" }}>
+                  <Box sx={classes.box}>
                     <Field
                       as={TextField}
                       fullWidth
@@ -148,7 +151,7 @@ function EditForm() {
                       name="firstname"
                     />
                   </Box>
-                  <Box sx={{ margin: "20px 0" }}>
+                  <Box sx={classes.box}>
                     <Field
                       as={TextField}
                       fullWidth
@@ -157,7 +160,7 @@ function EditForm() {
                       name="lastname"
                     />
                   </Box>
-                  <Box sx={{ margin: "20px 0" }}>
+                  <Box sx={classes.box}>
                     <Field
                       as={TextField}
                       fullWidth
@@ -166,7 +169,7 @@ function EditForm() {
                       name="email"
                     />
                   </Box>{" "}
-                  <Box sx={{ margin: "20px 0" }}>
+                  <Box sx={classes.box}>
                     <Field
                       as={TextField}
                       fullWidth
@@ -175,7 +178,7 @@ function EditForm() {
                       name="address"
                     />
                   </Box>{" "}
-                  <Box sx={{ margin: "20px 0" }}>
+                  <Box sx={classes.box}>
                     <Field
                       as={TextField}
                       fullWidth

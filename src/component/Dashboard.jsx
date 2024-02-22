@@ -1,18 +1,12 @@
-import React from 'react'
-import Registration from './Registration'
-import { Stack } from '@mui/material'
+import React from "react";
+import Registration from "./Registration";
 
 function Dashboard() {
   return (
-   <>
-   <Stack sx={{
-    
-   }}>
-   <Registration />
-   </Stack>
-    
-   </>
-  )
+    <>
+      <Registration />
+    </>
+  );
 }
 
-export default Dashboard
+export default Dashboard;

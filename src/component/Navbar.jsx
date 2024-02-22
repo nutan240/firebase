@@ -149,26 +149,7 @@ function ResponsiveNavBar() {
                   ADD EMPLOYEE
                 </Typography>
               </NavLink>
-              {/* <NavLink
-                style={{
-                  width: "20px",
-                  color: "black",
-                }}
-                to={"/empdetails"}
-              >
-                <Typography
-                  sx={{
-                    width: "100px",
-                    marginTop: "10px",
-                    color: "#8c7569",
-                    fontWeight: "bold",
-                    fontSize: "14px",
-                  }}
-                  textAlign="center"
-                >
-                 EMP DETAILS
-                </Typography>
-              </NavLink> */}
+              
             </Menu>
           </Box>
 

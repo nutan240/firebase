@@ -9,13 +9,60 @@ import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { addDoc, collection } from "firebase/firestore";
 import Image1 from "../assets/loginimg.jpg";
-import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Buttoncomponent from "./Buttoncomponent";
 import Inputcomp from "./Inputcomp";
-import "../css/Registration.css";
+
+import { makeStyles } from "mui-styles-hook";
+
+const useStyles = makeStyles(() => ({
+  grid_container: {
+    display: "flex",
+    width: "100%",
+    overflow: "auto",
+    height: "100vh",
+  },
+  grid_container1: {
+    background: "#5e879d",
+    overflow: "auto",
+    width: { lg: "50%", sm: "100%", xs: "100%" },
+  },
+  form_container11: {
+    display: "flex",
+    float: { lg: "right ", sm: "none" },
+    width: { lg: "50%", sm: "60%", xs: "auto" },
+    marginX: { lg: "0px ", sm: " auto" },
+    position: "relative",
+    top: "100px",
+    background: "white",
+    borderTopLeftRadius: 6,
+    borderBottomLeftRadius: 6,
+    padding: "48px",
+  },
+  typography_para: {
+    fontSize: "13px",
+    fontStyle: "italic",
+  },
+  box_container1: {
+    background: "#303f5ea3",
+    width: "50%",
+    display: { lg: "block", sm: "none", xs: "none" },
+  },
+  stack_side_container: {
+    backgroundImage: ` url( ${Image1} )`,
+    objectFit: "cover",
+    position: "center",
+    overflow: "auto",
+    height: "496px",
+
+    width: { lg: "55%", sm: "60%", xs: "auto" },
+    marginTop: "100px",
+    borderTopRightRadius: 9,
+    borderBottomRightRadius: 9,
+  },
+}));
+
 function Registration() {
+  const classes = useStyles();
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
 
@@ -68,22 +115,9 @@ function Registration() {
   return (
     <>
       <Stack>
-        <Grid className="grid_container">
-          <Grid
-            className="grid_container1"
-            sx={{
-              width: { lg: "50%", sm: "100%", xs: "100%" },
-            }}
-          >
-            <Stack
-              direction={"column"}
-              sx={{
-                float: { lg: "right ", sm: "none" },
-                width: { lg: "50%", sm: "60%", xs: "auto" },
-                marginX: { lg: "0px ", sm: " auto" },
-              }}
-              className="form_container"
-            >
+        <Grid sx={classes.grid_container}>
+          <Grid sx={classes.grid_container1}>
+            <Stack direction={"column"} sx={classes.form_container11}>
               <Typography className="heading" variant="h5">
                 Sign Up
               </Typography>
@@ -114,10 +148,7 @@ function Registration() {
                     />
                     <Typography
                       variant="p"
-                      sx={{
-                        fontSize: "13px",
-                        fontStyle: "italic",
-                      }}
+                      sx={classes.typography_para}
                       color={"red"}
                     >
                       {formik.errors.firstname &&
@@ -135,10 +166,7 @@ function Registration() {
                     />
                     <Typography
                       variant="p"
-                      sx={{
-                        fontSize: "13px",
-                        fontStyle: "italic",
-                      }}
+                      sx={classes.typography_para}
                       color={"red"}
                     >
                       {formik.errors.lastname &&
@@ -156,10 +184,7 @@ function Registration() {
                     />
                     <Typography
                       variant="p"
-                      sx={{
-                        fontSize: "13px",
-                        fontStyle: "italic",
-                      }}
+                      sx={classes.typography_para}
                       color={"red"}
                     >
                       {formik.errors.email &&
@@ -174,35 +199,11 @@ function Registration() {
                       inputvalue={formik.values.password}
                       handleChange={formik.handleChange}
                       handleBlur={formik.handleBlur}
-                      // InputProps={{
-                      //   endAdornment: (
-                      //     <InputAdornment position="end">
-                      //       <IconButton
-                      //         onClick={() =>
-                      //           formik.setValues({
-                      //             ...formik.values,
-                      //             showPassword: !formik.values.showPassword,
-                      //           })
-                      //         }
-                      //         edge="end"
-                      //       >
-                      //         {formik.values.showPassword ? (
-                      //           <VisibilityOff />
-                      //         ) : (
-                      //           <Visibility />
-                      //         )}
-                      //       </IconButton>
-                      //     </InputAdornment>
-                      //   ),
-                      // }}
                     />
 
                     <Typography
                       variant="p"
-                      sx={{
-                        fontSize: "13px",
-                        fontStyle: "italic",
-                      }}
+                      sx={classes.typography_para}
                       color={"red"}
                     >
                       {formik.errors.password &&
@@ -225,27 +226,8 @@ function Registration() {
               </Box>
             </Stack>
           </Grid>
-          <Grid
-            sx={{
-              background: "#303f5ea3",
-              width: "50%",
-              display: { lg: "block", sm: "none", xs: "none" },
-            }}
-          >
-            <Stack
-              sx={{
-                backgroundImage: ` url( ${Image1} )`,
-                objectFit: "cover",
-                position: "center",
-                overflow: "auto",
-                height: "496px",
-
-                width: { lg: "55%", sm: "60%", xs: "auto" },
-                marginTop: "100px",
-                borderTopRightRadius: 9,
-                borderBottomRightRadius: 9,
-              }}
-            ></Stack>
+          <Grid sx={classes.box_container1}>
+            <Stack sx={classes.stack_side_container}></Stack>
           </Grid>
         </Grid>
       </Stack>
