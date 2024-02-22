@@ -9,7 +9,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import Image1 from "../assets/loginimg4.jpg";
-import Buttoncomponent from "./Buttoncomponent";
+import CustomButton from "./CustomButton";
 import Inputcomp from "./Inputcomp";
 import { makeStyles } from "mui-styles-hook";
 
@@ -180,8 +180,7 @@ function Logiin() {
                     formik.touched.password &&
                     formik.errors.password}
                 </Typography>
-
-                <Buttoncomponent buttontype={"submit"} title={"login"} />
+                <CustomButton  buttontype={"submit"} title={"login"}/>
               </Stack>
             </form>
 

@@ -8,9 +8,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import Image from "../assets/loginimg3.jpg";
-import Buttoncomponent from "./Buttoncomponent";
+// import Buttoncomponent from "./Buttoncomponent";
 import Inputcomp from "./Inputcomp";
 import { makeStyles } from "mui-styles-hook";
+import CustomButton from "./CustomButton";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -229,7 +230,7 @@ function Empregistrationdashboard() {
                 </Typography>
                 <Inputcomp
                   label={"Phone No."}
-                  type={"text"}
+                  type={"number"}
                   inputname={"phoneno"}
                   inputvalue={formik.values.phoneno}
                   handleChange={formik.handleChange}
@@ -244,11 +245,11 @@ function Empregistrationdashboard() {
                     formik.touched.phoneno &&
                     formik.errors.phoneno}
                 </Typography>
-                <Buttoncomponent
-                  buttontype={"submit"}
-                  title={"Add Employee "}
-                />
-                <Buttoncomponent handelclick={handelclick} title={"Cancel "} />
+               
+                <CustomButton   buttontype={"submit"}
+                  title={"Add Employee "}/>
+                <CustomButton  handelclick={handelclick} title={"Cancel "}/>
+                
               </Stack>
             </Form>
           </Formik>

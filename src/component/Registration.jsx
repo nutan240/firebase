@@ -9,10 +9,11 @@ import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { addDoc, collection } from "firebase/firestore";
 import Image1 from "../assets/loginimg.jpg";
-import Buttoncomponent from "./Buttoncomponent";
 import Inputcomp from "./Inputcomp";
 
 import { makeStyles } from "mui-styles-hook";
+import CustomButton from "./CustomButton";
+
 
 const useStyles = makeStyles(() => ({
   grid_container: {
@@ -25,18 +26,24 @@ const useStyles = makeStyles(() => ({
     background: "#5e879d",
     overflow: "auto",
     width: { lg: "50%", sm: "100%", xs: "100%" },
+    height :'100vh'
   },
   form_container11: {
     display: "flex",
     float: { lg: "right ", sm: "none" },
     width: { lg: "50%", sm: "60%", xs: "auto" },
     marginX: { lg: "0px ", sm: " auto" },
-    position: "relative",
-    top: "100px",
+    // position: "relative",
+    // top: "100px",
     background: "white",
     borderTopLeftRadius: 6,
     borderBottomLeftRadius: 6,
     padding: "48px",
+    height: "500px",
+    marginTop: "100px",
+
+    overflow:'auto'
+
   },
   typography_para: {
     fontSize: "13px",
@@ -52,8 +59,7 @@ const useStyles = makeStyles(() => ({
     objectFit: "cover",
     position: "center",
     overflow: "auto",
-    height: "496px",
-
+    height: "500px",
     width: { lg: "55%", sm: "60%", xs: "auto" },
     marginTop: "100px",
     borderTopRightRadius: 9,
@@ -211,7 +217,8 @@ function Registration() {
                         formik.errors.password}
                     </Typography>
 
-                    <Buttoncomponent buttontype={"submit"} title={"sign up "} />
+                    
+                    <CustomButton buttontype={"submit"} title={"sign up "}/>
                   </Stack>
                 </Form>
               </Formik>

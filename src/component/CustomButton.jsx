@@ -8,7 +8,7 @@ const useStyles = makeStyles(() => ({
     marginLeft: "3px",
   },
 }));
-function Buttoncomponent({ buttontype, title, handelclick }) {
+function CustomButton({ buttontype, title, handelclick }) {
   const classes = useStyles();
   return (
     <Button
@@ -22,4 +22,4 @@ function Buttoncomponent({ buttontype, title, handelclick }) {
   );
 }
 
-export default Buttoncomponent;
+export default CustomButton;

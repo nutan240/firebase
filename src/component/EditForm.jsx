@@ -14,8 +14,8 @@ import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "../assets/editimg.jpg";
-import Buttoncomponent from "./Buttoncomponent";
 import { makeStyles } from "mui-styles-hook";
+import CustomButton from "./CustomButton";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -261,11 +261,10 @@ function EditForm() {
                   </Box>
                   <Box className={classes.button}>
                     {!loading && (
-                      <Buttoncomponent
-                        buttontype={"submit"}
+                      <CustomButton  buttontype={"submit"}
                         title={"  Save Changes "}
-                        disabled={isSubmitting || loading}
-                      />
+                        disabled={isSubmitting || loading}/>
+                     
                     )}
                     {loading && (
                       <CircularProgress
@@ -274,10 +273,9 @@ function EditForm() {
                         className={classes.loader}
                       />
                     )}
-                    <Buttoncomponent
-                      handelclick={handelclick}
-                      title={"Cancel "}
-                    />
+                    <CustomButton   handelclick={handelclick}
+                      title={"Cancel "}/>
+                   
                   </Box>
                 </Form>
               )}

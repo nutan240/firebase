@@ -37,7 +37,7 @@ const useStyles = makeStyles(() => ({
     textAlign: "center",
     fontStyle: "italic",
     fontWeight: "bold",
-    fontSize: "47px",
+    fontSize: {lg :"47px" , sm :'30px' , xs :'27px'},
     width: "100%",
     marginBottom: "30px",
     textDecoration: "underline",
@@ -46,7 +46,7 @@ const useStyles = makeStyles(() => ({
   stack_container1: {
     width: { lg: "70%" },
     gap: 2,
-    margin: { sm: 5, lg: "auto" },
+    margin: { sm: 5, lg: "auto" ,xs :4 },
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -66,7 +66,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     
     color: "white",
-    
+
   },
   card_container1: {
     width: 150,
