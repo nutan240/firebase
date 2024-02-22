@@ -90,9 +90,17 @@ function Empregistrationdashboard() {
         .max(20)
         .required("Please enter your address"),
       email: Yup.string().email().required("Please enter your email"),
-      phoneno: Yup.string()
-        .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
-        .required("Please enter your phone number"),
+      phoneno: Yup.number()
+    .typeError("Phone number must be a number")
+    .positive("Phone number can't start with a minus")
+    .integer("Phone number can't include a decimal point")
+    .test('len', 'Phone number must be exactly 10 digits', val => {
+        if (!val) return false; 
+        return val.toString().length === 10; 
+    })
+    .required('A phone number is required'),
+
+
     }),
     onSubmit: async (values) => {
       setErrorMsg("");

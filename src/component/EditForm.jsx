@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
-import { Box, Stack, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Stack,
+  TextField,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, database } from "../firebase";
@@ -13,7 +19,7 @@ import { makeStyles } from "mui-styles-hook";
 
 const useStyles = makeStyles(() => ({
   container: {
-    backgroundImage: ` url( ${Image} )`,
+    backgroundImage: `url(${Image})`,
     height: "100vh",
     overflow: "auto",
     width: "100%",
@@ -38,14 +44,29 @@ const useStyles = makeStyles(() => ({
   box: {
     margin: "20px 0",
   },
+  button: {
+    position: "relative",
+  },
+  loader: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  },
+  typographypara: {
+    fontSize: "13px",
+    fontStyle: "italic",
+  },
 }));
 
 function EditForm() {
   const classes = useStyles();
 
   const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
+
   useEffect(() => {
     const getUserData = async () => {
       try {
@@ -85,6 +106,8 @@ function EditForm() {
     }
 
     try {
+      setLoading(true);
+
       const currentUser = auth.currentUser;
       const userId = currentUser.uid;
       const docRef = doc(database, `demo/${userId}/posts`, id);
@@ -102,6 +125,8 @@ function EditForm() {
     } catch (error) {
       console.error("Error updating document: ", error);
       toast.error("Error updating document: " + error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -134,13 +159,23 @@ function EditForm() {
                   .max(20)
                   .required("Please enter your address"),
                 email: Yup.string().email().required("Please enter your email"),
-                phoneno: Yup.string()
-                  .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
-                  .required("Please enter your phone number"),
+                phoneno: Yup.number()
+                  .typeError("Phone number must be a number")
+                  .positive("Phone number can't start with a minus")
+                  .integer("Phone number can't include a decimal point")
+                  .test(
+                    "len",
+                    "Phone number must be exactly 10 digits",
+                    (val) => {
+                      if (!val) return false;
+                      return val.toString().length === 10;
+                    }
+                  )
+                  .required("A phone number is required"),
               })}
               onSubmit={handleSubmit}
             >
-              {({ handleChange }) => (
+              {({ isSubmitting, errors, touched }) => (
                 <Form>
                   <Box sx={classes.box}>
                     <Field
@@ -150,6 +185,15 @@ function EditForm() {
                       type="text"
                       name="firstname"
                     />
+                    <Typography
+                      variant="p"
+                      sx={classes.typographypara}
+                      color={"red"}
+                    >
+                      {errors.firstname &&
+                        touched.firstname &&
+                        errors.firstname}
+                    </Typography>
                   </Box>
                   <Box sx={classes.box}>
                     <Field
@@ -159,6 +203,13 @@ function EditForm() {
                       type="text"
                       name="lastname"
                     />
+                    <Typography
+                      variant="p"
+                      sx={classes.typographypara}
+                      color={"red"}
+                    >
+                      {errors.lastname && touched.lastname && errors.lastname}
+                    </Typography>
                   </Box>
                   <Box sx={classes.box}>
                     <Field
@@ -168,6 +219,13 @@ function EditForm() {
                       type="email"
                       name="email"
                     />
+                    <Typography
+                      variant="p"
+                      sx={classes.typographypara}
+                      color={"red"}
+                    >
+                      {errors.email && touched.email && errors.email}
+                    </Typography>
                   </Box>{" "}
                   <Box sx={classes.box}>
                     <Field
@@ -177,6 +235,13 @@ function EditForm() {
                       type="text"
                       name="address"
                     />
+                    <Typography
+                      variant="p"
+                      sx={classes.typographypara}
+                      color={"red"}
+                    >
+                      {errors.address && touched.address && errors.address}
+                    </Typography>
                   </Box>{" "}
                   <Box sx={classes.box}>
                     <Field
@@ -186,15 +251,34 @@ function EditForm() {
                       type="text"
                       name="phoneno"
                     />
+                    <Typography
+                      variant="p"
+                      sx={classes.typographypara}
+                      color={"red"}
+                    >
+                      {errors.phoneno && touched.phoneno && errors.phoneno}
+                    </Typography>
                   </Box>
-                  <Buttoncomponent
-                    buttontype={"submit"}
-                    title={"  Save Changes "}
-                  />
-                  <Buttoncomponent
-                    handelclick={handelclick}
-                    title={"Cancel "}
-                  />
+                  <Box className={classes.button}>
+                    {!loading && (
+                      <Buttoncomponent
+                        buttontype={"submit"}
+                        title={"  Save Changes "}
+                        disabled={isSubmitting || loading}
+                      />
+                    )}
+                    {loading && (
+                      <CircularProgress
+                        sx={{ width: "50px" }}
+                        size={24}
+                        className={classes.loader}
+                      />
+                    )}
+                    <Buttoncomponent
+                      handelclick={handelclick}
+                      title={"Cancel "}
+                    />
+                  </Box>
                 </Form>
               )}
             </Formik>

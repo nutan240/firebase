@@ -64,7 +64,9 @@ const useStyles = makeStyles(() => ({
     boxShadow: 2,
     bgcolor: "#1b3c4b",
     display: "flex",
+    
     color: "white",
+    
   },
   card_container1: {
     width: 150,
@@ -75,7 +77,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexWrap: "wrap",
   },
-  
+
 }));
 
 function Home() {

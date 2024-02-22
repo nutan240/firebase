@@ -134,6 +134,7 @@ function ResponsiveNavBar() {
                 style={{
                   width: "30px",
                   color: "black",
+                  textDecoration :'none'
                 }}
                 to={"/dashboard"}
               >
@@ -143,6 +144,8 @@ function ResponsiveNavBar() {
                     color: "#8c7569",
                     fontWeight: "bold",
                     fontSize: "14px",
+                    textDecorationStyle :'none'
+                    , textDecoration :'none'
                   }}
                   textAlign="center"
                 >
