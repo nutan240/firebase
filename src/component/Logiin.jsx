@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import "../css/Login.css";
+
 import Image1 from "../assets/loginimg4.jpg";
 import Buttoncomponent from "./Buttoncomponent";
 import Inputcomp from "./Inputcomp";

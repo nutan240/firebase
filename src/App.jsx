@@ -9,7 +9,7 @@ import EditForm from "./component/EditForm";
 import Protected from "./Router/Protected"; 
 import Profile from "./component/Profile";
 import Empregistrationdashboard from "./component/Empregistrationdashboard";
-import Empdetails from "./component/Empdetails";
+
 
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
           <Route path="/edit/:id" element={<EditForm />} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/dashboard" element={<Empregistrationdashboard/>} />
-          <Route path="/empdetails" element={<Empdetails/>} />
+         
         </Routes>
       </Router>
      
