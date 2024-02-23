@@ -235,14 +235,20 @@ function EditForm() {
                   </Box>
                   <Box sx={classes.box}>
                     <FormControl fullWidth>
-                      <InputLabel id="address-label">Address</InputLabel>
+                      <InputLabel id="demo-simple-select-helper-label">
+                        Address
+                      </InputLabel>
                       <Select
-                        labelId="address-label"
-                        id="address"
+                        labelId="demo-simple-select-helper-label"
+                        id="demo-simple-select-helper"
                         name="address"
-                        value={userData.address && values.address}
+                        label="Address"
                         onChange={handleChange}
+                        value={userData.address && values.address}
                       >
+                        <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem>
                         {addressOptions.map((option) => (
                           <MenuItem key={option} value={option}>
                             {option}
