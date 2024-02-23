@@ -19,6 +19,7 @@ const useStyles = makeStyles(() => ({
     background: " #006369a3",
     overflow: "hidden",
     width: "100%",
+    padding :3
   },
   container2: {
     width: { lg: "70%", sm: "100%", xs: "100%" },

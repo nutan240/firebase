@@ -6,6 +6,10 @@ import {
   TextField,
   Typography,
   CircularProgress,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -130,6 +134,8 @@ function EditForm() {
     }
   };
 
+  const addressOptions = ["Albania", "India", "Iran", "Iraq"];
+
   return (
     <>
       <Stack sx={classes.container}>
@@ -175,7 +181,7 @@ function EditForm() {
               })}
               onSubmit={handleSubmit}
             >
-              {({ isSubmitting, errors, touched }) => (
+              {({ isSubmitting, errors, touched, values, handleChange }) => (
                 <Form>
                   <Box sx={classes.box}>
                     <Field
@@ -226,15 +232,24 @@ function EditForm() {
                     >
                       {errors.email && touched.email && errors.email}
                     </Typography>
-                  </Box>{" "}
+                  </Box>
                   <Box sx={classes.box}>
-                    <Field
-                      as={TextField}
-                      fullWidth
-                      label="Addres"
-                      type="text"
-                      name="address"
-                    />
+                    <FormControl fullWidth>
+                      <InputLabel id="address-label">Address</InputLabel>
+                      <Select
+                        labelId="address-label"
+                        id="address"
+                        name="address"
+                        value={userData.address && values.address}
+                        onChange={handleChange}
+                      >
+                        {addressOptions.map((option) => (
+                          <MenuItem key={option} value={option}>
+                            {option}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
                     <Typography
                       variant="p"
                       sx={classes.typographypara}
@@ -242,7 +257,7 @@ function EditForm() {
                     >
                       {errors.address && touched.address && errors.address}
                     </Typography>
-                  </Box>{" "}
+                  </Box>
                   <Box sx={classes.box}>
                     <Field
                       as={TextField}
@@ -261,10 +276,11 @@ function EditForm() {
                   </Box>
                   <Box className={classes.button}>
                     {!loading && (
-                      <CustomButton  buttontype={"submit"}
+                      <CustomButton
+                        buttontype={"submit"}
                         title={"  Save Changes "}
-                        disabled={isSubmitting || loading}/>
-                     
+                        disabled={isSubmitting || loading}
+                      />
                     )}
                     {loading && (
                       <CircularProgress
@@ -273,9 +289,7 @@ function EditForm() {
                         className={classes.loader}
                       />
                     )}
-                    <CustomButton   handelclick={handelclick}
-                      title={"Cancel "}/>
-                   
+                    <CustomButton handelclick={handelclick} title={"Cancel "} />
                   </Box>
                 </Form>
               )}

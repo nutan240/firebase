@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form, useFormik } from "formik";
-import { Stack, Typography } from "@mui/material";
+import {
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { auth, database } from "../firebase";
@@ -12,6 +20,7 @@ import Image from "../assets/loginimg3.jpg";
 import Inputcomp from "./Inputcomp";
 import { makeStyles } from "mui-styles-hook";
 import CustomButton from "./CustomButton";
+import DropDown from "./DropDown";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -44,10 +53,11 @@ const useStyles = makeStyles(() => ({
 
 function Empregistrationdashboard() {
   const classes = useStyles();
-
+  const address = ["Albania", "India", "Iran", "Iraq"];
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
   const [userPostsCollection, setUserPostsCollection] = useState(null);
+
 
   useEffect(() => {
     const fetchUserPostsCollection = async () => {
@@ -68,6 +78,7 @@ function Empregistrationdashboard() {
 
     fetchUserPostsCollection();
   }, []);
+
 
   const formik = useFormik({
     initialValues: {
@@ -92,16 +103,14 @@ function Empregistrationdashboard() {
         .required("Please enter your address"),
       email: Yup.string().email().required("Please enter your email"),
       phoneno: Yup.number()
-    .typeError("Phone number must be a number")
-    .positive("Phone number can't start with a minus")
-    .integer("Phone number can't include a decimal point")
-    .test('len', 'Phone number must be exactly 10 digits', val => {
-        if (!val) return false; 
-        return val.toString().length === 10; 
-    })
-    .required('A phone number is required'),
-
-
+        .typeError("Phone number must be a number")
+        .positive("Phone number can't start with a minus")
+        .integer("Phone number can't include a decimal point")
+        .test("len", "Phone number must be exactly 10 digits", (val) => {
+          if (!val) return false;
+          return val.toString().length === 10;
+        })
+        .required("A phone number is required"),
     }),
     onSubmit: async (values) => {
       setErrorMsg("");
@@ -129,6 +138,12 @@ function Empregistrationdashboard() {
   });
   const handelclick = () => {
     navigate("/home");
+  };
+  const handleChange = (selectedAddress) => {
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      address: selectedAddress,
+    }));
   };
 
   return (
@@ -211,14 +226,8 @@ function Empregistrationdashboard() {
                     formik.touched.email &&
                     formik.errors.email}
                 </Typography>
-                <Inputcomp
-                  label={"Address"}
-                  type={"text"}
-                  inputname={"address"}
-                  inputvalue={formik.values.address}
-                  handleChange={formik.handleChange}
-                  handleBlur={formik.handleBlur}
-                />
+
+                
                 <Typography
                   variant="p"
                   sx={classes.typographypara}
@@ -245,11 +254,9 @@ function Empregistrationdashboard() {
                     formik.touched.phoneno &&
                     formik.errors.phoneno}
                 </Typography>
-               
-                <CustomButton   buttontype={"submit"}
-                  title={"Add Employee "}/>
-                <CustomButton  handelclick={handelclick} title={"Cancel "}/>
-                
+
+                <CustomButton buttontype={"submit"} title={"Add Employee "} />
+                <CustomButton handelclick={handelclick} title={"Cancel "} />
               </Stack>
             </Form>
           </Formik>
